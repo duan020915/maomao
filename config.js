@@ -1,1 +1,2 @@
-window.MAOMAO_CONFIG = {url:'https://popangetivmijcqnwohl.supabase.co',key:'sb_publishable_tiOSR6ilflzTXzf22yfGTg_AprmQqbK'};
+// Static demo only. No backend connection or credentials in this preview.
+window.MAOMAO_CONFIG = null;
