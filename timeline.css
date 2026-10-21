@@ -21,3 +21,6 @@
 .comment-thread{display:grid;gap:5px;margin-top:7px}
 .comment-thread .comment{padding:7px 10px;border-radius:10px;font-size:12px;overflow-wrap:anywhere;line-height:1.5}
 .notification .entry-comments{margin-top:12px}
+
+.preview-banner{padding:11px 16px;margin:0 0 18px;border-radius:14px;background:#fff0c8;border:1px solid #ecd99c;color:#755f43;font-size:13px;font-weight:600;line-height:1.5}
+@media(max-width:650px){.preview-banner{font-size:11px;margin-bottom:10px}}
