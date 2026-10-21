@@ -1,1 +1,1 @@
-{"name":"maomao","version":"1.0.0","private":true,"scripts":{"check":"node --check app.js"}}
+{"name":"maomao","version":"1.0.0","private":true,"scripts":{"check":"node --check app.js","test":"node verify.cjs"},"devDependencies":{"@electric-sql/pglite":"0.3.14","playwright":"1.58.2"}}
