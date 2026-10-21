@@ -1,0 +1,24 @@
+create table public.mm_profiles(id uuid primary key references auth.users on delete cascade, name text not null check(length(name) between 1 and 30), avatar text not null default '🐱');
+create table public.mm_groups(id uuid primary key default gen_random_uuid(), name text not null check(length(name) between 1 and 40), owner uuid not null references auth.users, code text unique not null default encode(gen_random_bytes(9),'hex'), created_at timestamptz default now());
+create table public.mm_members(group_id uuid references public.mm_groups on delete cascade,user_id uuid references public.mm_profiles on delete cascade,primary key(group_id,user_id));
+create table public.mm_entries(id uuid primary key default gen_random_uuid(),group_id uuid not null references public.mm_groups on delete cascade,user_id uuid not null references public.mm_profiles,day date not null,kind text not null check(kind in ('plan','post','event')),body text not null check(length(body) between 1 and 4000),mood text default '😊',status text default '有安排',image text check(length(image)<1500000),created_at timestamptz default now());
+create table public.mm_responses(id uuid primary key default gen_random_uuid(),entry_id uuid not null references public.mm_entries on delete cascade,user_id uuid not null references public.mm_profiles,body text not null check(length(body) between 1 and 500),kind text not null check(kind in ('comment','join','like')),created_at timestamptz default now());
+create function public.mm_is_member(g uuid) returns boolean language sql stable security definer set search_path=public as $$select exists(select 1 from mm_members where group_id=g and user_id=auth.uid())$$;
+create function public.mm_create_group(n text) returns uuid language plpgsql security definer set search_path=public as $$declare g uuid;begin if auth.uid() is null then raise exception '请先登录';end if; if not exists(select 1 from mm_profiles where id=auth.uid()) then raise exception '请先完善资料';end if; if length(n) not between 1 and 40 then raise exception '群名称长度不正确';end if; if (select count(*) from mm_groups where owner=auth.uid())>=30 then raise exception '群组数量已达上限';end if;insert into mm_groups(name,owner) values(n,auth.uid()) returning id into g;insert into mm_members values(g,auth.uid());return g;end$$;
+create function public.mm_join_group(c text) returns uuid language plpgsql security definer set search_path=public as $$declare g uuid;begin if auth.uid() is null then raise exception '请先登录';end if;select id into g from mm_groups where code=lower(trim(c));if g is null then raise exception '邀请码不存在';end if;insert into mm_members values(g,auth.uid()) on conflict do nothing;return g;end$$;
+alter table mm_profiles enable row level security;alter table mm_groups enable row level security;alter table mm_members enable row level security;alter table mm_entries enable row level security;alter table mm_responses enable row level security;
+create policy profile_read on mm_profiles for select to authenticated using(id=auth.uid() or exists(select 1 from mm_members m where m.user_id=id and mm_is_member(m.group_id)));
+create policy profile_insert on mm_profiles for insert to authenticated with check(id=auth.uid());
+create policy profile_update on mm_profiles for update to authenticated using(id=auth.uid()) with check(id=auth.uid());
+create policy group_read on mm_groups for select to authenticated using(mm_is_member(id));
+create policy member_read on mm_members for select to authenticated using(mm_is_member(group_id));
+create policy entry_read on mm_entries for select to authenticated using(mm_is_member(group_id) or user_id=auth.uid());
+create policy entry_insert on mm_entries for insert to authenticated with check(user_id=auth.uid() and mm_is_member(group_id));
+create policy entry_update on mm_entries for update to authenticated using(user_id=auth.uid() and mm_is_member(group_id)) with check(user_id=auth.uid() and mm_is_member(group_id));
+create policy response_read on mm_responses for select to authenticated using(exists(select 1 from mm_entries e where e.id=entry_id and mm_is_member(e.group_id)));
+create policy response_insert on mm_responses for insert to authenticated with check(user_id=auth.uid() and exists(select 1 from mm_entries e where e.id=entry_id and mm_is_member(e.group_id)));
+grant select,insert,update on mm_profiles,mm_entries to authenticated;grant select on mm_groups,mm_members to authenticated;grant select,insert on mm_responses to authenticated;
+revoke all on function mm_create_group(text),mm_join_group(text),mm_is_member(uuid) from public,anon;
+grant execute on function mm_create_group(text),mm_join_group(text),mm_is_member(uuid) to authenticated;
+create index mm_entries_group_day on mm_entries(group_id,day);create index mm_members_user on mm_members(user_id);
+
