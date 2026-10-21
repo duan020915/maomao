@@ -1,0 +1,16 @@
+/* Prototype timeline: 24-hour rows and RSVP controls. */
+.timeline{background:#fffefa;border:1px solid var(--line);border-radius:22px;padding:18px;margin-top:15px}
+.timeline h3{font-size:18px;margin:2px 0 18px}
+.timeline-allday{padding:12px;background:#fff4e7;border-radius:13px;margin-bottom:18px}
+.timeline-allday strong{display:block;margin-bottom:10px;font-size:12px}
+.timeline-hours{border-top:1px solid var(--line)}
+.timeline-row{display:grid;grid-template-columns:58px minmax(0,1fr);border-bottom:1px solid #eee6de;min-height:44px}
+.timeline-row time{font-size:12px;color:var(--muted);padding:10px 5px;text-align:right;border-right:1px solid #eee6de}
+.timeline-row>div{padding:4px 10px;min-width:0}
+.timeline-item{display:flex;align-items:flex-start;gap:12px;padding:6px;margin-bottom:4px;border-radius:12px;background:#f8efdf}
+.timeline-item>span{min-width:115px;max-width:180px;font-size:12px;padding:10px;color:#7c604f}
+.timeline-item>.plan{flex:1;min-width:0;margin:0}
+.time-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.time-pair input{width:100%;min-width:0}
+.postactions small{font-size:12px;color:var(--muted)}
+@media(max-width:650px){.timeline{padding:10px}.timeline-row{grid-template-columns:48px minmax(0,1fr)}.timeline-row time{font-size:10px}.timeline-row>div{padding:3px}.timeline-item{display:block;padding:5px}.timeline-item>span{display:block;padding:4px;max-width:none}.time-pair{gap:8px}}
