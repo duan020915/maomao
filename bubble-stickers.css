@@ -1,5 +1,5 @@
 /* Visual treatment for 冒个泡 only. The buttons and their data actions stay in app.js. */
-.scrapbook-feed{display:flex;flex-direction:column;align-items:flex-start;gap:28px;max-width:880px;margin:22px 0 0;padding:21px 16px 48px;background:#f8f3e9;border:0;border-radius:0;box-shadow:none}
+.scrapbook-feed{display:flex;flex-direction:column;align-items:flex-start;gap:28px;max-width:880px;margin:22px 0 0;padding:21px 16px 48px;background:transparent;border:0;border-radius:0;box-shadow:none}
 .scrapbook-feed::before,.scrapbook-feed::after{content:none}
 .scrapbook-feed .bubble-sticker{position:relative;isolation:isolate;box-sizing:border-box;width:96%;max-width:760px;min-height:245px;margin:0;border:46px solid transparent;border-right-width:37px;border-bottom-width:40px;border-left-width:39px;border-radius:0;background:transparent;box-shadow:none;filter:drop-shadow(1px 5px 5px #715f4b2b);font-family:'PingFang SC','Hiragino Sans GB',sans-serif;animation:none}
 .scrapbook-feed .bubble-sticker::before,.scrapbook-feed .bubble-sticker::after{content:none}
@@ -20,7 +20,7 @@
 .scrapbook-feed .postactions .bubble-like{width:21px;height:21px;max-width:21px;max-height:21px;object-fit:contain;border:0;border-radius:0}
 .scrapbook-feed .comment{margin:6px 0 0;padding:0;border:0;border-radius:0;background:none;font-size:12px;line-height:1.55;overflow-wrap:anywhere;color:#554a43}
 .scrapbook-feed .bubble-sticker-mood{display:block;flex:0 0 auto;pointer-events:none}
-.scrapbook-feed .bubble-sticker-mood .mood-sticker{display:block;width:91px;height:85px;max-width:91px;max-height:85px;object-fit:contain;transform:rotate(-8deg);mix-blend-mode:multiply}
+.scrapbook-feed .bubble-sticker-mood .mood-sticker{display:block;width:104px;height:97px;max-width:104px;max-height:97px;object-fit:contain;transform:rotate(-8deg);mix-blend-mode:multiply}
 .scrapbook-feed .bubble-tall .bubble-sticker-mood{margin-top:-48px}
 .scrapbook-feed .bubble-tall .bubble-sticker-mood .mood-sticker{transform:rotate(7deg)}
 @media(max-width:650px){
@@ -33,6 +33,6 @@
  .scrapbook-feed .postheader b{font-size:14px}
  .scrapbook-feed .status-reply{font-size:13px;margin:9px 0 11px}
  .scrapbook-feed .bubble-photo{max-height:235px}
- .scrapbook-feed .bubble-sticker-mood .mood-sticker{width:71px;height:69px;max-width:71px;max-height:69px}
+ .scrapbook-feed .bubble-sticker-mood .mood-sticker{width:80px;height:78px;max-width:80px;max-height:78px}
  .scrapbook-feed .bubble-tall .bubble-sticker-mood{margin-top:-38px}
 }
