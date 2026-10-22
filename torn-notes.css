@@ -1,0 +1,23 @@
+/* Tear-off paper notes — scoped exclusively to the mood feed. */
+.scrapbook-feed{gap:34px;padding:34px 27px 60px 40px}
+.scrapbook-feed .post{position:relative;isolation:isolate;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible;max-width:760px;min-height:160px;padding:27px 26px 23px 29px!important;margin:8px 23px 8px 4px!important;transform:rotate(-1deg)}
+.scrapbook-feed .post:nth-child(4n+2){margin-left:18px!important;margin-right:3px!important;transform:rotate(1.2deg)}
+.scrapbook-feed .post:nth-child(4n+3){margin-left:3px!important;margin-right:34px!important;transform:rotate(-.7deg)}
+.scrapbook-feed .post:nth-child(4n){margin-left:14px!important;margin-right:6px!important;transform:rotate(.6deg)}
+/* An uneven, hand-torn silhouette replaces the rounded card. */
+.scrapbook-feed .post::after{content:"";position:absolute;inset:-7px -5px -6px -7px;z-index:-1;pointer-events:none;border:0;border-radius:0;background:linear-gradient(163deg,#ffffff30,#00000006 85%),var(--paper);clip-path:polygon(0% 1.8%,2% .6%,4% 1.4%,6% .4%,9% 1.1%,12% .3%,15% 1%,18% .2%,21% .8%,25% 0%,29% .9%,33% .2%,37% 1%,41% .3%,45% .8%,49% .1%,53% .8%,58% .2%,62% .9%,67% .3%,72% 1%,76% .1%,80% .8%,85% .2%,90% 1%,94% .2%,97% 1%,100% .4%,99.4% 5%,100% 10%,99.4% 16%,100% 22%,99.3% 29%,100% 36%,99.4% 43%,100% 50%,99.3% 57%,100% 64%,99.3% 71%,100% 78%,99.4% 85%,100% 92%,99% 99%,96% 98.8%,93% 100%,89% 99%,86% 99.8%,82% 98.9%,78% 99.8%,74% 99%,69% 100%,64% 99%,59% 99.8%,54% 99%,49% 100%,44% 99.1%,39% 99.8%,34% 98.9%,29% 99.9%,24% 99%,19% 99.8%,14% 99%,9% 100%,5% 99%,1% 99.8%,0% 97%,.7% 90%,0% 83%,.7% 75%,0% 67%,.7% 59%,0% 51%,.7% 43%,0% 35%,.7% 27%,0% 19%,.8% 11%) ;filter:drop-shadow(2px 6px 2px #51432d20)}
+.scrapbook-feed .post::before{left:40%;top:-14px;z-index:3;width:96px;height:25px;transform:rotate(-4deg)}
+.scrapbook-feed .post:nth-child(even)::before{left:55%;transform:rotate(6deg)}
+.scrapbook-feed .postheader{padding:0;min-height:38px;position:relative}
+.scrapbook-feed .postheader b{display:block!important;position:static;font-size:14px;line-height:1.5;padding:0;white-space:normal}
+.scrapbook-feed .postheader small{display:block;margin-top:3px}
+.scrapbook-feed .postheader .avatar{width:32px;height:32px;flex-shrink:0}
+/* Sticker is laid into unused upper-right paper, NEVER on the avatar/name. */
+.scrapbook-feed .postheader img.mood-sticker{position:absolute!important;top:0!important;right:1px!important;left:auto!important;width:84px!important;height:84px!important;transform:rotate(9deg)!important;z-index:2;pointer-events:none;filter:drop-shadow(2px 3px 2px #56483230)}
+.scrapbook-feed .post:nth-child(even) .postheader img.mood-sticker{transform:rotate(-8deg)!important}
+.scrapbook-feed .postheader>div{min-width:0;padding-right:95px}
+.scrapbook-feed .status-reply{padding:13px 100px 20px 2px!important;min-height:76px;width:100%;text-align:left;white-space:pre-wrap}
+.scrapbook-feed .postactions{position:relative;z-index:2;padding-top:10px}
+.scrapbook-feed .comment{position:relative;z-index:2}
+.scrapbook-feed .post>img:not(.mood-sticker){max-width:calc(100% - 95px)}
+@media(max-width:650px){.scrapbook-feed{gap:26px;padding:26px 15px 35px 22px}.scrapbook-feed .post,.scrapbook-feed .post:nth-child(n){padding:22px 15px 18px 17px!important;margin-left:0!important;margin-right:6px!important;min-height:154px}.scrapbook-feed .post:nth-child(even){margin-left:5px!important;margin-right:1px!important}.scrapbook-feed .postheader img.mood-sticker{width:64px!important;height:64px!important;right:0!important;top:0!important}.scrapbook-feed .postheader>div{padding-right:70px}.scrapbook-feed .status-reply{padding-right:72px!important;min-height:65px}.scrapbook-feed .post>img:not(.mood-sticker){max-width:calc(100% - 72px)}}
