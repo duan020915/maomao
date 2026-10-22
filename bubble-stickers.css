@@ -5,7 +5,7 @@
 .feed-hero h1 span{display:none}
 .feed-hero .primary{padding:10px 15px;background:#eedcca;border:0;border-radius:13px;box-shadow:none;color:#684f42;font-size:13px}
 .mood-calendar{width:min(100%,760px);margin:0 0 2px;color:#55483f;font-family:'PingFang SC','Hiragino Sans GB',sans-serif}
-.mood-calendar-toggle{display:flex;align-items:center;gap:8px;width:100%;padding:10px 13px;text-align:left;background:#f4ece0;border-radius:13px;font-size:13px;font-weight:600}
+.mood-calendar-toggle{display:flex;align-items:center;gap:8px;width:100%;padding:9px 3px;text-align:left;background:transparent;border-bottom:1px solid #eadfd2;border-radius:0;font-size:13px;font-weight:600}
 .mood-calendar-toggle img{width:23px;height:23px;object-fit:contain}
 .mood-calendar-chevron{margin-left:auto;color:#9b8170;font-size:11px;font-weight:400}
 .mood-calendar-panel{margin-top:8px;padding:17px;background:#fffaf3;border:1px solid #ebddcd;border-radius:14px}
@@ -13,18 +13,19 @@
 .mood-calendar-heading button{width:30px;height:30px;font-size:22px;color:#8f7361}
 .mood-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
 .mood-calendar-weekday{text-align:center;font-size:11px;color:#9b8575;padding:3px 0}
-.mood-calendar-day,.mood-calendar-blank{min-width:0;min-height:53px;padding:5px 2px;border-radius:8px;text-align:center;font-size:11px}
+.mood-calendar-day,.mood-calendar-blank{min-width:0;min-height:69px;padding:5px 2px;border-radius:8px;text-align:center;font-size:11px}
 .mood-calendar-day{display:flex;flex-direction:column;align-items:center;background:#f9f4ec}
 .mood-calendar-day.today{box-shadow:inset 0 0 0 1px #cfad96}
 .mood-calendar-day.selected{background:#efdccc}
-.mood-calendar-mark{display:flex;align-items:center;gap:1px;height:23px}
-.mood-calendar-mark .mood-sticker{width:21px;height:21px}
+.mood-calendar-mark{display:grid;grid-template-columns:repeat(2,19px);grid-auto-rows:19px;justify-content:center;align-content:center;gap:0;width:100%;min-height:39px}
+.mood-calendar-mark .mood-sticker{width:19px;height:19px}
 .mood-calendar-mark b{font-size:10px;color:#8f7566}
 .mood-calendar-daily{margin-top:14px;padding-top:12px;border-top:1px solid #eadfce}
 .mood-calendar-daily>b{display:block;margin-bottom:7px;font-size:12px}
 .mood-calendar-daily>div{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px}
 .mood-calendar-daily .mood-sticker{width:30px;height:30px}
 .mood-calendar-daily p{margin:8px 0 0;color:#a08d7c;font-size:12px}
+@media(min-width:700px){.mood-calendar-mark{grid-template-columns:repeat(4,20px);grid-auto-rows:20px;min-height:25px}.mood-calendar-mark .mood-sticker{width:20px;height:20px}.mood-calendar-day,.mood-calendar-blank{min-height:58px}}
 .scrapbook-feed{display:flex;flex-direction:column;align-items:flex-start;gap:28px;max-width:880px;margin:22px 0 0;padding:21px 16px 48px;background:transparent;border:0;border-radius:0;box-shadow:none}
 .scrapbook-feed::before,.scrapbook-feed::after{content:none}
 .scrapbook-feed .bubble-sticker{position:relative;isolation:isolate;box-sizing:border-box;width:96%;max-width:760px;min-height:245px;margin:0;border:46px solid transparent;border-right-width:37px;border-bottom-width:40px;border-left-width:39px;border-radius:0;background:transparent;box-shadow:none;filter:drop-shadow(1px 5px 5px #715f4b2b);font-family:'PingFang SC','Hiragino Sans GB',sans-serif;animation:none}

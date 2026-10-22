@@ -58,3 +58,20 @@
 }
 .heading-star{display:inline-block;width:auto;height:auto;max-width:26px;max-height:24px;object-fit:contain;vertical-align:middle}
 @media(max-width:720px){.heading-star{max-width:22px;max-height:21px}}
+@media(max-width:720px){
+ .paper-art{display:none}
+ .note-art .sticker{display:block;width:auto;height:auto;max-width:100%;max-height:104px;object-fit:contain;transform:none}
+ .note{min-height:180px}
+}
+.mobile-comment-shade{display:none}
+@media(max-width:720px){
+ .mobile-comment-shade{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:18px;background:#302b2770;backdrop-filter:blur(3px)}
+ .mobile-comment-dialog{position:relative;width:min(100%,430px);max-height:min(88vh,700px);overflow:auto;padding:25px 20px 20px;border:2px solid #ead6bd;border-radius:25px;background:#fffdfa;box-shadow:0 15px 35px #332a2240;color:#58483f}
+ .mobile-comment-dialog h2{margin:3px 38px 21px 0;font-size:20px;line-height:1.4}
+ .mobile-comment-dialog h2 span{font-size:19px}
+ .mobile-comment-close{position:absolute;top:12px;right:18px;border:0;background:none;color:#59483f;font-size:30px;line-height:1}
+ .mobile-comment-reply{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:3;margin:0 0 18px;color:#907b6d;font-size:13px;line-height:1.7;white-space:pre-wrap}
+ .mobile-comment-dialog label{display:block;margin-bottom:8px;font-size:14px}
+ .mobile-comment-dialog textarea{display:block;width:100%;min-height:125px;padding:13px;resize:vertical;border:1px solid #e7d1b9;border-radius:13px;outline-color:#cf8b79;background:#fffdfa;font-size:14px}
+ .mobile-comment-send{display:block;width:100%;margin-top:20px;padding:12px;border:1px solid #af6959;border-radius:13px;background:#c9826d;box-shadow:0 4px #e8cbc1;color:white;font-size:15px;font-weight:700}
+}
