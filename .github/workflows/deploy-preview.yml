@@ -21,22 +21,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-          cache-dependency-path: next-app/package-lock.json
-      - name: Install dependencies
-        working-directory: next-app
-        run: npm ci
-      - name: Build static Next.js site
-        working-directory: next-app
-        run: npm run build
+      - name: Package complete Maomao app from repository root
+        run: |
+          mkdir -p site
+          cp index.html ./*.css ./*.js ./*.svg ./*.webmanifest site/
+          cp -R assets site/
+          cp -R vendor site/
+          touch site/.nojekyll
+          test -s site/index.html
+          test -s site/app.js
+          test -s site/bubble-stickers.css
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: next-app/out
+          path: site
 
   deploy:
     needs: build
