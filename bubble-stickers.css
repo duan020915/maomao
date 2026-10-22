@@ -4,6 +4,27 @@
 .feed-hero h1{margin:0;color:#493d36;font-size:30px;font-weight:700;letter-spacing:.03em}
 .feed-hero h1 span{display:none}
 .feed-hero .primary{padding:10px 15px;background:#eedcca;border:0;border-radius:13px;box-shadow:none;color:#684f42;font-size:13px}
+.mood-calendar{width:min(100%,760px);margin:0 0 2px;color:#55483f;font-family:'PingFang SC','Hiragino Sans GB',sans-serif}
+.mood-calendar-toggle{display:flex;align-items:center;gap:8px;width:100%;padding:10px 13px;text-align:left;background:#f4ece0;border-radius:13px;font-size:13px;font-weight:600}
+.mood-calendar-toggle img{width:23px;height:23px;object-fit:contain}
+.mood-calendar-chevron{margin-left:auto;color:#9b8170;font-size:11px;font-weight:400}
+.mood-calendar-panel{margin-top:8px;padding:17px;background:#fffaf3;border:1px solid #ebddcd;border-radius:14px}
+.mood-calendar-heading{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:14px}
+.mood-calendar-heading button{width:30px;height:30px;font-size:22px;color:#8f7361}
+.mood-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.mood-calendar-weekday{text-align:center;font-size:11px;color:#9b8575;padding:3px 0}
+.mood-calendar-day,.mood-calendar-blank{min-width:0;min-height:53px;padding:5px 2px;border-radius:8px;text-align:center;font-size:11px}
+.mood-calendar-day{display:flex;flex-direction:column;align-items:center;background:#f9f4ec}
+.mood-calendar-day.today{box-shadow:inset 0 0 0 1px #cfad96}
+.mood-calendar-day.selected{background:#efdccc}
+.mood-calendar-mark{display:flex;align-items:center;gap:1px;height:23px}
+.mood-calendar-mark .mood-sticker{width:21px;height:21px}
+.mood-calendar-mark b{font-size:10px;color:#8f7566}
+.mood-calendar-daily{margin-top:14px;padding-top:12px;border-top:1px solid #eadfce}
+.mood-calendar-daily>b{display:block;margin-bottom:7px;font-size:12px}
+.mood-calendar-daily>div{display:flex;align-items:center;gap:8px;padding:4px 0;font-size:12px}
+.mood-calendar-daily .mood-sticker{width:30px;height:30px}
+.mood-calendar-daily p{margin:8px 0 0;color:#a08d7c;font-size:12px}
 .scrapbook-feed{display:flex;flex-direction:column;align-items:flex-start;gap:28px;max-width:880px;margin:22px 0 0;padding:21px 16px 48px;background:transparent;border:0;border-radius:0;box-shadow:none}
 .scrapbook-feed::before,.scrapbook-feed::after{content:none}
 .scrapbook-feed .bubble-sticker{position:relative;isolation:isolate;box-sizing:border-box;width:96%;max-width:760px;min-height:245px;margin:0;border:46px solid transparent;border-right-width:37px;border-bottom-width:40px;border-left-width:39px;border-radius:0;background:transparent;box-shadow:none;filter:drop-shadow(1px 5px 5px #715f4b2b);font-family:'PingFang SC','Hiragino Sans GB',sans-serif;animation:none}
@@ -18,14 +39,14 @@
 .scrapbook-feed .postheader .info-text{display:block;margin-top:3px;font-size:11px;color:#87786c}
 .scrapbook-feed .status-reply{width:100%;min-height:0;margin:11px 0 13px;padding:0;border:0;background:none;box-shadow:none;text-align:left;color:#453b35;font-size:15px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
 .scrapbook-feed .bubble-photo{display:block;width:100%;max-width:100%;height:auto;max-height:300px;object-fit:cover;border:5px solid #fffaf3;border-radius:0;box-shadow:1px 2px 5px #6f5b4e33;transform:rotate(1deg)}
-.scrapbook-feed .bubble-sticker-bottom{position:relative;display:block;min-width:0;margin-top:auto;padding-bottom:194px}
-.scrapbook-feed .bubble-sticker-replies{width:100%;min-width:0}
+.scrapbook-feed .bubble-sticker-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto;min-width:0}
+.scrapbook-feed .bubble-sticker-replies{flex:1;min-width:0}
 .scrapbook-feed .postactions{display:flex;align-items:center;gap:12px;margin:0;padding:4px 0 0;border:0;color:#a36f75}
 .scrapbook-feed .postactions button{display:inline-flex;align-items:center;gap:5px;padding:0;font-size:12px;color:#a36f75}
 .scrapbook-feed .postactions .bubble-like{width:21px;height:21px;max-width:21px;max-height:21px;object-fit:contain;border:0;border-radius:0}
 .scrapbook-feed .comment{margin:6px 0 0;padding:0;border:0;border-radius:0;background:none;font-size:12px;line-height:1.55;overflow-wrap:anywhere;color:#554a43}
-.scrapbook-feed .bubble-sticker-mood{position:absolute;right:0;bottom:0;display:block;pointer-events:none}
-.scrapbook-feed .bubble-sticker-mood .mood-sticker{display:block;width:208px;height:194px;max-width:208px;max-height:194px;object-fit:contain;transform:rotate(-8deg);mix-blend-mode:multiply}
+.scrapbook-feed .bubble-sticker-mood{display:block;flex:0 0 auto;pointer-events:none}
+.scrapbook-feed .bubble-sticker-mood .mood-sticker{display:block;width:104px;height:97px;max-width:104px;max-height:97px;object-fit:contain;transform:rotate(-8deg);mix-blend-mode:multiply}
 .scrapbook-feed .bubble-tall .bubble-sticker-mood{margin-top:0}
 .scrapbook-feed .bubble-tall .bubble-sticker-mood .mood-sticker{transform:rotate(7deg)}
 @media(max-width:650px){
@@ -41,6 +62,5 @@
  .scrapbook-feed .postheader b{font-size:14px}
  .scrapbook-feed .status-reply{font-size:13px;margin:9px 0 11px}
  .scrapbook-feed .bubble-photo{max-height:235px}
- .scrapbook-feed .bubble-sticker-bottom{padding-bottom:156px}
- .scrapbook-feed .bubble-sticker-mood .mood-sticker{width:160px;height:156px;max-width:160px;max-height:156px}
+ .scrapbook-feed .bubble-sticker-mood .mood-sticker{width:80px;height:78px;max-width:80px;max-height:78px}
 }
