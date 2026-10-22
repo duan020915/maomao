@@ -13,6 +13,22 @@
 .time-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .time-pair input{width:100%;min-width:0}
 .postactions small{font-size:12px;color:var(--muted)}
+.invite-card{cursor:pointer;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+.invite-card:hover,.invite-card:focus-visible{transform:translateY(-5px);box-shadow:0 13px 24px #85614425;border-color:#cfa889}
+.invite-card:active{transform:translateY(-2px)}
+.invite-card:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.invite-card .postactions{flex-wrap:wrap;gap:9px 16px}
+.invite-card .postactions span{white-space:nowrap}
+.invite-dialog[open]{animation:invite-float-in .28s cubic-bezier(.2,.8,.2,1) both}
+.invite-dialog .sub{white-space:pre-wrap}
+.rsvp-options{display:grid;gap:9px;margin:18px 0}
+.rsvp-options label{display:block;margin:0;cursor:pointer}
+.rsvp-options input{position:absolute;opacity:0;width:1px;height:1px}
+.rsvp-options span{display:block;padding:12px 15px;border:1px solid var(--line);border-radius:13px;background:#fffaf2;transition:background .2s,border-color .2s,transform .2s}
+.rsvp-options label:hover span{transform:translateY(-2px);border-color:#cfa889}
+.rsvp-options input:checked+span{background:#f2dbc7;border-color:#bd8a6a;font-weight:700}
+.rsvp-options input:focus-visible+span{outline:2px solid var(--orange);outline-offset:2px}
+@keyframes invite-float-in{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:650px){.timeline{padding:10px}.timeline-row{grid-template-columns:48px minmax(0,1fr)}.timeline-row time{font-size:10px}.timeline-row>div{padding:3px}.timeline-item{display:block;padding:5px}.timeline-item>span{display:block;padding:4px;max-width:none}.time-pair{gap:8px}}
 
 /* Shared comment threads for schedules and recent friend updates */
