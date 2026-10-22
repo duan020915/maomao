@@ -23,7 +23,7 @@ function iconizeDom(root){
     const slot=button.querySelector('span');
     if(slot&&navIcons[button.dataset.page])slot.replaceChildren(sketchImage(navIcons[button.dataset.page]));
   });
-  const utilityIcons=[['.topbar [data-action="refresh"]','refresh'],['.topbar [data-page="notifications"]','bell'],['.topbar [data-action="auth"]','user']];
+  const utilityIcons=[['.topbar [data-action="refresh"]','refresh'],['.topbar [data-page="notifications"]','bell']];
   utilityIcons.forEach(([selector,name])=>root.querySelectorAll(selector).forEach(button=>button.replaceChildren(sketchImage(name))));
   root.querySelectorAll('[data-mood]').forEach(button=>{
     const entry=moodAssets[button.dataset.mood]||moodAssets['😊'];
