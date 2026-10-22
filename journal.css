@@ -15,3 +15,9 @@ body[data-page="profile"] .profile{margin:32px 8px;max-width:730px}.profile h2{c
 .notification{background-image:url('assets/frames/paper-grain.svg')!important}
 @media(min-width:1100px){main{margin-right:24px;margin-top:18px;min-height:calc(100vh - 18px);border-top:1px solid #e8d9c4;border-radius:5px 9px 0 0}aside{padding-bottom:35px}}
 @media(max-width:650px){body,body:not([data-page="feed"]){background-color:#fff9ee}main{margin:0;min-height:calc(100vh - 80px);padding:12px 20px 110px;border-left:0;box-shadow:none}main::before{left:9px;border-color:#d4a19a30}aside,body:not([data-page="feed"]) aside{background:transparent;padding:20px 20px 12px}.brand{margin-bottom:0}.groupbtn::before{width:40px;height:11px;top:-7px}.topbar{padding-bottom:12px;margin-bottom:22px}nav,body:not([data-page="feed"]) nav{background:#f8efdf url('assets/frames/paper-grain.svg');border-top:1px dashed #cfb99b;gap:0}body:not([data-page="feed"]) .hero{min-height:107px;margin-top:10px;margin-bottom:25px;padding:22px 16px}body:not([data-page="feed"]) .hero::before{left:22px;width:54px;height:17px;top:-8px}body:not([data-page="feed"]) h1{font-size:26px}body[data-page="events"] .feed{padding:0;gap:26px}.approval-page{margin-top:26px}.members{margin:20px 0}body[data-page="profile"] .profile{margin:25px 0}.feed-hero{margin-top:5px}}
+/* Stable logo and group selector across every navigation destination. */
+body .brand,body:not([data-page="feed"]) .brand{color:#8c5946}
+body .logo,body:not([data-page="feed"]) .logo{background:#c78165;border:0;border-radius:48% 48% 44% 16%;box-shadow:4px 5px 0 #e7c9ac}
+body .groupbtn,body:not([data-page="feed"]) .groupbtn{background:#fff;border:0;border-radius:24px;box-shadow:0 7px 0 #e9d9c380;padding:14px;text-align:left}
+body .groupbtn:hover,body:not([data-page="feed"]) .groupbtn:hover{box-shadow:0 7px 0 #e9d9c380}
+@media(max-width:650px){body .groupbtn,body:not([data-page="feed"]) .groupbtn{padding:9px 12px;border-radius:20px}}
