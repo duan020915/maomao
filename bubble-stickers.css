@@ -1,0 +1,38 @@
+/* Visual treatment for 冒个泡 only. The buttons and their data actions stay in app.js. */
+.scrapbook-feed{display:flex;flex-direction:column;align-items:flex-start;gap:28px;max-width:880px;margin:22px 0 0;padding:21px 16px 48px;background:#f8f3e9;border:0;border-radius:0;box-shadow:none}
+.scrapbook-feed::before,.scrapbook-feed::after{content:none}
+.scrapbook-feed .bubble-sticker{position:relative;isolation:isolate;box-sizing:border-box;width:96%;max-width:760px;min-height:245px;margin:0;border:46px solid transparent;border-right-width:37px;border-bottom-width:40px;border-left-width:39px;border-radius:0;background:transparent;box-shadow:none;filter:drop-shadow(1px 5px 5px #715f4b2b);font-family:'PingFang SC','Hiragino Sans GB',sans-serif;animation:none}
+.scrapbook-feed .bubble-sticker::before,.scrapbook-feed .bubble-sticker::after{content:none}
+.scrapbook-feed .bubble-blue{border-image-source:url('assets/bubble-stickers/01_blue.png');border-image-slice:290 225 255 235 fill;border-image-repeat:stretch stretch;transform:rotate(-1.4deg);margin-left:4px}
+.scrapbook-feed .bubble-pink{border-image-source:url('assets/bubble-stickers/02_pink.png');border-image-slice:290 225 255 235 fill;border-image-repeat:stretch stretch;transform:rotate(1.2deg);align-self:flex-end;margin-right:3px}
+.scrapbook-feed .bubble-tall{width:min(92%,560px);max-width:560px;min-height:0;aspect-ratio:1122/1402;padding:70px 64px 62px 72px;border:0;background:url('assets/bubble-stickers/green-tall-thin.png') center/100% 100% no-repeat;transform:rotate(-.9deg);margin-left:12px}
+.scrapbook-feed .bubble-sticker-content{position:relative;z-index:1;display:flex;flex-direction:column;min-height:155px}
+.scrapbook-feed .postheader{display:flex;align-items:center;gap:10px;min-height:42px}
+.scrapbook-feed .postheader .avatar{width:39px;height:39px;flex:0 0 39px;border:2px solid #fff8f1;background:#e7bcac}
+.scrapbook-feed .postheader b{display:block;font-size:16px;color:#453b35;line-height:1.4}
+.scrapbook-feed .postheader .info-text{display:block;margin-top:3px;font-size:11px;color:#87786c}
+.scrapbook-feed .status-reply{width:100%;min-height:0;margin:11px 0 13px;padding:0;border:0;background:none;box-shadow:none;text-align:left;color:#453b35;font-size:15px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.scrapbook-feed .bubble-photo{display:block;width:100%;max-width:100%;height:auto;max-height:300px;object-fit:cover;border:5px solid #fffaf3;border-radius:0;box-shadow:1px 2px 5px #6f5b4e33;transform:rotate(1deg)}
+.scrapbook-feed .bubble-sticker-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:8px;margin-top:auto;min-width:0}
+.scrapbook-feed .bubble-sticker-replies{flex:1;min-width:0}
+.scrapbook-feed .postactions{display:flex;align-items:center;gap:12px;margin:0;padding:4px 0 0;border:0;color:#a36f75}
+.scrapbook-feed .postactions button{display:inline-flex;align-items:center;gap:5px;padding:0;font-size:12px;color:#a36f75}
+.scrapbook-feed .postactions .bubble-like{width:21px;height:21px;max-width:21px;max-height:21px;object-fit:contain;border:0;border-radius:0}
+.scrapbook-feed .comment{margin:6px 0 0;padding:0;border:0;border-radius:0;background:none;font-size:12px;line-height:1.55;overflow-wrap:anywhere;color:#554a43}
+.scrapbook-feed .bubble-sticker-mood{display:block;flex:0 0 auto;pointer-events:none}
+.scrapbook-feed .bubble-sticker-mood .mood-sticker{display:block;width:91px;height:85px;max-width:91px;max-height:85px;object-fit:contain;transform:rotate(-8deg);mix-blend-mode:multiply}
+.scrapbook-feed .bubble-tall .bubble-sticker-mood{margin-top:-48px}
+.scrapbook-feed .bubble-tall .bubble-sticker-mood .mood-sticker{transform:rotate(7deg)}
+@media(max-width:650px){
+ .scrapbook-feed{gap:23px;margin:14px -5px 0;padding:17px 2px 37px}
+ .scrapbook-feed .bubble-sticker{width:98%;min-height:220px;border-width:34px 29px 31px 30px}
+ .scrapbook-feed .bubble-blue{margin-left:0}
+ .scrapbook-feed .bubble-pink{margin-right:0}
+ .scrapbook-feed .bubble-tall{width:96%;max-width:none;min-height:0;padding:56px 49px 55px 55px;border:0;margin-left:3px}
+ .scrapbook-feed .postheader .avatar{width:35px;height:35px;flex-basis:35px}
+ .scrapbook-feed .postheader b{font-size:14px}
+ .scrapbook-feed .status-reply{font-size:13px;margin:9px 0 11px}
+ .scrapbook-feed .bubble-photo{max-height:235px}
+ .scrapbook-feed .bubble-sticker-mood .mood-sticker{width:71px;height:69px;max-width:71px;max-height:69px}
+ .scrapbook-feed .bubble-tall .bubble-sticker-mood{margin-top:-38px}
+}

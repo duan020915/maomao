@@ -8,3 +8,7 @@ nav button span .sketch-icon{width:21px;height:21px;vertical-align:middle}
 .post img.sketch-icon{display:inline-block;width:1.25em;height:1.25em;max-height:none;object-fit:contain;border-radius:0}
 .postheader img.mood-icon{width:24px;height:24px;max-height:none;object-fit:contain;border-radius:0}
 .invite-poll-label .sketch-icon{width:18px;height:18px;margin-right:4px}
+.sketch-icon.crayon-icon{width:auto;height:auto;max-width:1.25em;max-height:1.25em;object-fit:contain}
+nav button span .sketch-icon.crayon-icon{width:auto;height:auto;max-width:25px;max-height:25px}
+.topbar .sketch-icon.crayon-icon{width:auto;height:auto;max-width:21px;max-height:21px}
+[data-action="compose"] .sketch-icon.crayon-icon{width:auto;height:auto;max-width:22px;max-height:22px;margin-right:6px;vertical-align:middle}

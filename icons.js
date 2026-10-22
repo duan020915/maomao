@@ -11,20 +11,28 @@ const sketchIcons={
 const moodAssets={'😊':['okay','平静'],'🥰':['lovely','心动'],'😌':['calm','放松'],'🤩':['excited','兴奋'],'🌿':['fresh','清爽'],'😵‍💫':['tired','疲惫'],'🥳':['celebrate','雀跃'],'☁️':['quiet','低落']};
 function sketchImage(name,label=''){
   const image=document.createElement('img');
-  image.className='sketch-icon'+(name.startsWith('mood:')?' mood-icon':'');
-  image.src=name.startsWith('mood:')?'assets/moods/'+name.slice(5)+'.svg':'assets/icons/'+name+'.svg';
+  const supplied={leaf:'doodle-leaf',flower:'doodle-flower',star:'doodle-star',heart:'sticker-heart',chat:'comment',bell:'notification'};
+  const crayon=name.startsWith('crayon:')?name.slice(7):supplied[name];
+  image.className='sketch-icon'+(name.startsWith('mood:')?' mood-icon':'')+(crayon?' crayon-icon':'');
+  image.src=crayon?'assets/crayon/'+crayon+'.png':name.startsWith('mood:')?'assets/moods/'+name.slice(5)+'.svg':'assets/icons/'+name+'.svg';
   image.alt=label;
   if(!label)image.setAttribute('aria-hidden','true');
   return image;
 }
 function iconizeDom(root){
-  const navIcons={calendar:'calendar',feed:'chat',events:'users',approvals:'shopping-bag',profile:'home'};
+  const navIcons={calendar:'crayon:nav-calendar',feed:'crayon:nav-home',events:'crayon:nav-meet',approvals:'crayon:nav-approval',profile:'crayon:nav-profile'};
   root.querySelectorAll('nav [data-page]').forEach(button=>{
     const slot=button.querySelector('span');
     if(slot&&navIcons[button.dataset.page])slot.replaceChildren(sketchImage(navIcons[button.dataset.page]));
   });
-  const utilityIcons=[['.topbar [data-action="refresh"]','refresh'],['.topbar [data-page="notifications"]','bell']];
+  const utilityIcons=[['.topbar [data-action="refresh"]','refresh'],['.topbar [data-page="notifications"]','crayon:notification']];
   utilityIcons.forEach(([selector,name])=>root.querySelectorAll(selector).forEach(button=>button.replaceChildren(sketchImage(name))));
+  root.querySelectorAll('[data-action="compose"]').forEach(button=>{
+    if(button.querySelector('.crayon-icon'))return;
+    const first=button.firstChild;
+    if(first?.nodeType===Node.TEXT_NODE)first.nodeValue=first.nodeValue.replace(/^\s*＋\s*/, '');
+    button.prepend(sketchImage('crayon:compose'));
+  });
   root.querySelectorAll('[data-mood]').forEach(button=>{
     // Preserve the custom hand-drawn PNG sticker and label in the new mood picker.
     if(button.querySelector('.mood-sticker'))return;
