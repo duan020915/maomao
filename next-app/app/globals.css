@@ -16,3 +16,33 @@
 .composer{background:#fffdf8;border-radius:22px;padding:28px;box-shadow:0 22px 70px #302c2545}.composer h2{font-family:inherit;font-size:20px;letter-spacing:-.4px}.mood-grid{gap:8px}.mood-grid button{border-radius:13px;background:#f7f4ec;transition:transform .15s}.mood-grid button:hover{transform:translateY(-2px)}.mood-grid button.picked{background:#edf1e7;border:2px solid #a2b198}.composer textarea{border-radius:12px;font-family:inherit;font-size:14px;line-height:1.7}
 @media(max-width:900px){.journal-shell{gap:12px;padding:12px}.journal-nav{width:180px;padding:25px 11px}.journal{width:calc(100% - 192px);padding:40px 34px 60px 55px}.binding{left:24px}.note-content{padding-right:99px}}
 @media(max-width:750px){body{background:#f9f8f5}.journal-shell{padding:0;display:block}.journal-nav{width:100%;height:auto;position:sticky;top:0;z-index:5;border:0;border-bottom:1px solid #e9e9df;border-radius:0;padding:13px 16px 9px;background:#fffefaed;backdrop-filter:blur(16px);box-shadow:0 2px 15px #5e554809}.brand-mark{font-size:23px;padding:0 5px}.brand-mark span{font-size:15px}.journal-nav nav{margin-top:12px;gap:6px;justify-content:space-between}.journal-nav nav a{font-size:12px;padding:9px 10px;border-radius:10px}.journal-nav nav a:hover{transform:none}.journal{width:calc(100% - 16px);margin:12px 8px 32px;padding:31px 25px 58px 38px;border-radius:19px}.binding{left:16px}.binding:after{display:none}.journal-head h1{font-size:25px}.journal-head p{font-size:12px}.add-note{margin-top:17px}.note-list{gap:29px;margin-top:39px}.paper-note{padding:22px 14px 17px;min-height:150px}.note-content{padding-right:72px}.note-content p{font-size:13px;line-height:1.85}.note-sticker{width:64px;height:64px;right:11px;top:31px}.note-actions{gap:7px}.comment-label input{width:105px}}
+
+/* Refined crayon scrapbook — single confident outlines, no scribble clutter */
+body{background:#faf7f0;color:#47453f}
+.journal-shell{max-width:1540px;gap:0;padding:0;background:#fcf9f2}
+.journal-nav{top:0;height:100vh;border:0;border-right:1px solid #e9e2d5;border-radius:0;background:#fcf9f2;box-shadow:none}
+.journal{width:min(920px,calc(100% - 224px));margin:0 auto;padding:60px 74px 90px 92px;border:0;border-radius:0;background:linear-gradient(90deg,#fdf9f2,#fffaf2);box-shadow:none;overflow:visible}
+.binding{display:none}
+.brand-mark{color:#557b9a;font-weight:800}
+.journal-head h1{color:#454741}
+.note-list{gap:25px}
+.paper-note{cursor:pointer;outline:none;transition:filter .18s ease;filter:drop-shadow(2px 5px 2px #796a5d25)}
+.paper-note:hover{filter:drop-shadow(3px 7px 3px #796a5d37)}
+.paper-note:focus-visible{outline:2px solid #587c9f;outline-offset:7px}
+.paper-note:after{content:"";position:absolute;inset:8px 7px;z-index:0;pointer-events:none;border:3px solid var(--outline,#72a1c5);border-radius:13% 9% 11% 8% / 9% 13% 8% 12%;transform:rotate(.1deg)}
+.paper-0{--outline:#76a7d2}.paper-1{--outline:#d998aa}.paper-2{--outline:#87a993}.paper-3{--outline:#cda36b}
+.paper-note .note-content,.paper-note .note-sticker,.paper-note .note-actions{position:relative;z-index:1}
+.note-meta{gap:10px}
+.user-avatar{width:37px;height:37px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;border-radius:50%;background:#e7bfb8;border:2px solid #fff7e7;font-weight:700;font-size:14px;color:#614b48;box-shadow:0 1px 4px #57462a20}
+.note-actions{gap:20px}.note-actions span{font-size:13px;color:#776e63}
+.detail-backdrop{position:fixed;inset:0;z-index:20;background:#342c2161;display:flex;justify-content:flex-end}
+.note-detail{height:100%;width:min(470px,100%);position:relative;overflow:auto;background:#fffaf1;padding:69px 37px 32px;border-left:3px solid #8da9cc;box-shadow:-8px 0 30px #453e3525}
+.detail-close{position:absolute;right:24px;top:19px;background:none;border:0;color:#6f695f;font-size:30px}
+.detail-author{display:flex;gap:12px;align-items:center}.detail-author strong{display:block;font-size:15px}.detail-author small{display:block;font-size:12px;color:#978d81;margin-top:5px}
+.detail-sticker{position:absolute;top:112px;right:33px;width:86px;height:86px;object-fit:contain;transform:rotate(7deg)}
+.detail-body{font-size:16px;line-height:2;padding:32px 100px 30px 0;min-height:146px;white-space:pre-wrap;overflow-wrap:anywhere}
+.detail-stats{border-bottom:1px solid #dfd6c8;padding-bottom:16px;color:#736a60}.note-detail h3{font-size:14px;font-weight:650;margin:26px 0 18px}
+.detail-comments p{line-height:1.8;margin:12px 0;padding:11px 0;border-bottom:1px dashed #e1d7c8;font-size:13px}.detail-comments b{font-weight:700}
+.detail-compose{display:flex;gap:8px;margin-top:25px}.detail-compose input{min-width:0;flex:1;border:1px solid #e4dacf;background:#fffefd;border-radius:12px;padding:12px;font-size:13px}.detail-compose button{border:0;border-radius:12px;background:#8eaa90;color:white;padding:11px 13px;font-size:12px}.detail-compose button:disabled{opacity:.5}
+@media(max-width:900px){.journal{width:calc(100% - 180px);padding:40px 33px 60px 44px}}
+@media(max-width:750px){.journal-nav{height:auto;position:sticky;top:0;border-right:0;border-bottom:1px solid #e9e2d5}.journal{width:100%;margin:0;padding:35px 28px 65px 34px}.note-detail{width:100%;border-left:0;border-top:3px solid #8da9cc}.paper-note:after{inset:7px 5px}}
