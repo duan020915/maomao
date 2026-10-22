@@ -26,7 +26,10 @@ function iconizeDom(root){
   const utilityIcons=[['.topbar [data-action="refresh"]','refresh'],['.topbar [data-page="notifications"]','bell']];
   utilityIcons.forEach(([selector,name])=>root.querySelectorAll(selector).forEach(button=>button.replaceChildren(sketchImage(name))));
   root.querySelectorAll('[data-mood]').forEach(button=>{
-    const entry=moodAssets[button.dataset.mood]||moodAssets['😊'];
+    // Preserve the custom hand-drawn PNG sticker and label in the new mood picker.
+    if(button.querySelector('.mood-sticker'))return;
+    const entry=moodAssets[button.dataset.mood];
+    if(!entry)return;
     button.setAttribute('aria-label',entry[1]);
     button.replaceChildren(sketchImage('mood:'+entry[0]));
   });
