@@ -1,0 +1,93 @@
+// Public preview only: approval requests and decisions live in memory.
+const approvalState={
+  requests:[{
+    id:'sample-purchase',user_id:'demo2',item:'猫爬架',currency:'CNY',price:299,
+    reason:'两只猫最近总爱往高处跑，想给它们准备一个稳当的活动空间。',
+    alternative:'看过纸箱和小型猫抓板，空间不够，也不太稳。',
+    images:[],mode:'multi',group_id:'demo',created_at:new Date().toISOString()
+  }],
+  votes:[]
+};
+const approvalCurrency={CNY:'¥',USD:'$',EUR:'€'};
+const approvalChoice={approve:'通过',reject:'驳回'};
+const approvalDate=value=>new Intl.DateTimeFormat('zh-CN',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'}).format(new Date(value));
+const approvalMoney=request=>`${approvalCurrency[request.currency]||'¥'} ${Number(request.price).toFixed(2).replace(/\.00$/,'')}`;
+function approvalStatus(request){
+  const votes=approvalState.votes.filter(v=>v.request_id===request.id);
+  const required=request.mode==='single'?1:Math.max(1,state.members.length-1);
+  if(votes.some(v=>v.choice==='reject'))return {label:'已驳回',tone:'rejected',votes,required};
+  if(votes.filter(v=>v.choice==='approve').length>=required)return {label:'已通过',tone:'approved',votes,required};
+  return {label:'待审批',tone:'pending',votes,required};
+}
+function approvalImages(request){
+  return request.images?.length?`<div class="approval-images">${request.images.map((src,i)=>`<img src="${esc(src)}" alt="${esc(request.item)}的参考图片 ${i+1}">`).join('')}</div>`:'';
+}
+function approvalsPage(){
+  const requests=approvalState.requests.filter(r=>r.group_id===state.group?.id).sort((a,b)=>b.created_at.localeCompare(a.created_at));
+  return `<section class="approval-page"><p class="approval-intro">🧾 把想买的东西、价格和理由写清楚。朋友给出的审批意见只用于演示，不会产生付款。</p><div class="approval-list">${requests.map(request=>{
+    const status=approvalStatus(request),author=member(request.user_id);
+    return `<article class="approval-card" data-approval-card="${esc(request.id)}" tabindex="0" aria-label="查看${esc(request.item)}的审批申请"><div class="approval-card-head"><span class="avatar">${esc(author.avatar)}</span><div><b>${esc(author.name)}想买</b><small>${approvalDate(request.created_at)} · ${request.mode==='single'?'单人审批':'多人审批'}</small></div><span class="approval-badge ${status.tone}">${status.label}</span></div><div class="approval-item"><strong>${esc(request.item)}</strong><b>${approvalMoney(request)}</b></div><p>${esc(request.reason)}</p><div class="approval-progress"><span>${status.votes.length} / ${status.required} 人已回复</span><span>点卡片查看并审批 ↗</span></div></article>`;
+  }).join('')||'<div class="empty">还没有购买申请，来发起第一条吧。</div>'}</div></section>`;
+}
+function approvalForm(){
+  return `<section class="approval-page approval-compose"><button class="approval-back" type="button" data-approval-action="back">← 返回审批列表</button><form id="approvalrequestform"><label for="approval-item">想买什么 <em>*</em></label><input id="approval-item" name="item" maxlength="80" required placeholder="例如：无线降噪耳机、机械键盘…"><label for="approval-price">价格 <em>*</em></label><div class="approval-price-row"><select name="currency" aria-label="币种"><option value="CNY">¥ 人民币</option><option value="USD">$ 美元</option><option value="EUR">€ 欧元</option></select><input id="approval-price" name="price" type="number" min="0.01" max="9999999" step="0.01" inputmode="decimal" required placeholder="0.00"></div><label for="approval-reason">为什么想买？ <em>*</em></label><textarea id="approval-reason" name="reason" maxlength="300" required placeholder="说说你为什么需要它…"></textarea><label for="approval-alternative">有没有更便宜的替代品？</label><textarea id="approval-alternative" name="alternative" maxlength="300" placeholder="有 / 没有，简单说明"></textarea><label for="approval-images">上传图片（选填，最多 3 张）</label><input id="approval-images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple><p class="approval-help">每张不超过 8 MB。图片只保存在本次演示中。</p><h3>审批方式</h3><div class="approval-methods"><label><input type="radio" name="mode" value="single" checked><span><b>单人审批</b><small>一人回复后结束</small></span></label><label><input type="radio" name="mode" value="multi"><span><b>多人审批</b><small>汇总圈里朋友的意见</small></span></label></div><h3>发送到哪里</h3><div class="approval-destination"><span class="avatar">🌱</span><div><b>${esc(state.group?.name||'示例小圈子')}</b><small>${state.members.length} 位朋友 · 演示审批群</small></div></div><p id="formerror" class="error"></p><button class="primary approval-submit" type="submit">提交审批</button></form></section>`;
+}
+function approvalDialog(id){
+  const request=approvalState.requests.find(r=>r.id===id);
+  if(!request)return toast('找不到这条申请');
+  const status=approvalStatus(request),author=member(request.user_id);
+  const mine=status.votes.find(v=>v.user_id==='demo1');
+  modal('看看这笔想买买 🧾',`<div class="approval-detail-head"><span class="avatar">${esc(author.avatar)}</span><div><b>${esc(author.name)}发起的审批</b><small>${approvalDate(request.created_at)} · ${request.mode==='single'?'单人审批':'多人审批'}</small></div></div><div class="approval-detail-item"><strong>${esc(request.item)}</strong><b>${approvalMoney(request)}</b></div><div class="approval-detail-row"><small>购买理由</small><p>${esc(request.reason)}</p></div><div class="approval-detail-row"><small>替代品</small><p>${esc(request.alternative||'暂未填写')}</p></div>${approvalImages(request)}<p class="approval-detail-status">${status.label} · 已有 ${status.votes.length} / ${status.required} 人回复</p><form id="approvalvoteform" data-id="${esc(id)}"><div class="approval-vote-options"><label><input type="radio" name="choice" value="approve" ${mine?.choice==='approve'?'checked':''} required><span>✓ 通过</span></label><label><input type="radio" name="choice" value="reject" ${mine?.choice==='reject'?'checked':''} required><span>× 驳回</span></label></div><label for="approval-vote-reason">回复理由 <em>*</em></label><textarea id="approval-vote-reason" name="reason" maxlength="300" required placeholder="说说你为什么这样决定…">${esc(mine?.reason||'')}</textarea><p id="formerror" class="error"></p><button class="primary approval-submit" type="submit">提交回复</button></form>${status.votes.length?`<div class="approval-replies"><h3>大家的回复</h3>${status.votes.map(v=>`<p><b>${esc(member(v.user_id).name)} · ${approvalChoice[v.choice]}</b>：${esc(v.reason)}</p>`).join('')}</div>`:''}`);
+  $('#modal').classList.add('approval-dialog');
+}
+document.addEventListener('click',event=>{
+  const button=event.target.closest('[data-approval-action]');
+  if(button){
+    if(button.dataset.approvalAction==='new'){state.page='approval-form';render()}
+    if(button.dataset.approvalAction==='back'){state.page='approvals';render()}
+    return;
+  }
+  const card=event.target.closest('[data-approval-card]');
+  if(card&&!event.target.closest('button,a,input,textarea,select'))approvalDialog(card.dataset.approvalCard);
+});
+document.addEventListener('keydown',event=>{
+  if((event.key==='Enter'||event.key===' ')&&event.target.matches('[data-approval-card]')){
+    event.preventDefault();approvalDialog(event.target.dataset.approvalCard);
+  }
+});
+document.addEventListener('submit',async event=>{
+  const form=event.target;
+  if(!['approvalrequestform','approvalvoteform'].includes(form.id))return;
+  event.preventDefault();
+  const button=event.submitter;
+  button.disabled=true;
+  try{
+    const data=new FormData(form);
+    if(form.id==='approvalrequestform'){
+      const item=String(data.get('item')||'').trim();
+      const price=Number(data.get('price'));
+      const reason=String(data.get('reason')||'').trim();
+      const alternative=String(data.get('alternative')||'').trim();
+      const currency=String(data.get('currency')||'');
+      const mode=String(data.get('mode')||'');
+      const files=data.getAll('images').filter(file=>file?.size);
+      if(!item||!reason)throw Error('请填写想买的东西和购买理由');
+      if(!Number.isFinite(price)||price<0.01||price>9999999)throw Error('请填写正确的价格');
+      if(!approvalCurrency[currency]||!['single','multi'].includes(mode))throw Error('请检查币种和审批方式');
+      if(files.length>3)throw Error('最多上传 3 张图片');
+      const images=[];
+      for(const file of files)images.push(await compress(file));
+      approvalState.requests.unshift({id:'approval-'+Date.now(),user_id:'demo1',item,price,currency,reason,alternative,images,mode,group_id:state.group.id,created_at:new Date().toISOString()});
+      state.page='approvals';render();toast('模拟审批已发起，朋友可以来回复啦');
+    }else{
+      const choice=String(data.get('choice')||'');
+      const reason=String(data.get('reason')||'').trim();
+      if(!approvalChoice[choice])throw Error('请选择通过或驳回');
+      if(!reason)throw Error('请写下回复理由');
+      approvalState.votes=approvalState.votes.filter(v=>!(v.request_id===form.dataset.id&&v.user_id==='demo1'));
+      approvalState.votes.push({request_id:form.dataset.id,user_id:'demo1',choice,reason,created_at:new Date().toISOString()});
+      $('#modal').close();render();toast('模拟审批回复已记录');
+    }
+  }catch(err){error(err.message)}
+  finally{if(button.isConnected)button.disabled=false}
+});
