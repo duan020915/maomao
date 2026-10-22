@@ -46,3 +46,7 @@ body{background:#faf7f0;color:#47453f}
 .detail-compose{display:flex;gap:8px;margin-top:25px}.detail-compose input{min-width:0;flex:1;border:1px solid #e4dacf;background:#fffefd;border-radius:12px;padding:12px;font-size:13px}.detail-compose button{border:0;border-radius:12px;background:#8eaa90;color:white;padding:11px 13px;font-size:12px}.detail-compose button:disabled{opacity:.5}
 @media(max-width:900px){.journal{width:calc(100% - 180px);padding:40px 33px 60px 44px}}
 @media(max-width:750px){.journal-nav{height:auto;position:sticky;top:0;border-right:0;border-bottom:1px solid #e9e2d5}.journal{width:100%;margin:0;padding:35px 28px 65px 34px}.note-detail{width:100%;border-left:0;border-top:3px solid #8da9cc}.paper-note:after{inset:7px 5px}}
+
+/* Keep the mood sticker floating in unused right-hand paper space. */
+.paper-note .note-sticker{position:absolute;right:20px;top:31px;z-index:2}
+@media(max-width:750px){.paper-note .note-sticker{right:11px;top:31px}}
