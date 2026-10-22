@@ -1,0 +1,12 @@
+.invite-card{cursor:pointer}
+.invite-question{font-size:19px;line-height:1.45;margin:22px 0 18px;font-weight:700;color:#6b5444}
+.invite-poll{display:grid;gap:11px;margin-top:12px}
+.invite-poll-choice{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:55px;padding:12px 16px;text-align:left;border:1px solid #e5d1bb;border-radius:15px;background:#fcf6ed;overflow:hidden;font-size:15px;font-weight:600;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.invite-poll-choice:hover,.invite-poll-choice:focus-visible{transform:translateY(-2px);border-color:#b99070;box-shadow:0 7px 16px #9d725722}
+.invite-poll-choice.selected{border:2px solid #8caa87}
+.invite-poll-choice .invite-poll-fill{position:absolute;inset:0 auto 0 0;z-index:-1;background:#e7eddf;transition:width .35s ease}
+.invite-poll-choice:nth-child(2) .invite-poll-fill{background:#f6e5dd}
+.invite-poll-choice b{font-size:16px}
+.invite-card .postactions{border:0;padding-top:4px;justify-content:flex-end}
+.invite-card .postactions:empty{display:none}
+@media(max-width:650px){.invite-question{font-size:18px}.invite-poll-choice{min-height:54px}}
