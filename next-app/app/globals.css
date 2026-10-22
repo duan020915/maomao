@@ -4,3 +4,57 @@
 @media(min-width:1101px){.detail-shade{background:transparent;pointer-events:none}.detail{pointer-events:auto}}
 .frame path{vector-effect:non-scaling-stroke;stroke-width:3.5}
 @media(min-width:1300px){.shell:has(.detail-shade) .feed{width:calc(100% - 734px);margin:0;padding-left:28px;padding-right:28px}}
+/* Mobile visual trial using the supplied v3 transparent PNGs. */
+.nav-icon{max-width:25px;max-height:25px;width:auto;height:auto;object-fit:contain}
+.icon-crayon,.sticker-crayon,.paper-art,.tape-art,.inline-comments{display:none}
+.actions .like-art{width:25px;height:auto;max-height:23px;object-fit:contain}
+@media(max-width:720px){
+ body{font-family:'Noto Sans SC','PingFang SC',-apple-system,BlinkMacSystemFont,sans-serif}
+ .shell{padding-bottom:calc(70px + env(safe-area-inset-bottom))}
+ .sidebar{position:static;height:60px;padding:10px 18px;background:#fcf9f2;border-bottom:0}
+ .brand{font-size:26px}
+ .sidebar nav{position:fixed;bottom:0;left:0;right:0;z-index:9;display:flex;justify-content:space-around;gap:0;margin:0;padding:8px 3px calc(7px + env(safe-area-inset-bottom));background:#fcf9f2f2;border-top:1px solid #e4ded3;backdrop-filter:blur(12px);overflow:visible}
+ .sidebar a{display:grid;justify-items:center;align-content:center;gap:3px;min-width:0;min-height:50px;padding:3px 1px;font-size:10px;letter-spacing:0}
+ .sidebar a.active{background:none;clip-path:none;color:#c96f85;font-weight:700}
+ .sidebar a .icon-svg,.top-actions .icon-svg{display:none}
+ .sidebar a .icon-crayon{display:block;width:auto;height:auto;max-width:30px;max-height:28px;object-fit:contain}
+ .top-actions .icon-crayon{display:block;max-width:25px;max-height:27px}
+ .feed{padding-top:0;padding-bottom:20px}
+ .topbar{height:52px}
+ .notes{gap:19px}
+ .post{min-width:0}
+ .note{display:flex;position:relative;width:100%;height:auto;min-height:195px;padding:18px 20px 13px;background:transparent;clip-path:none;box-shadow:none;transform:none;overflow:visible}
+ .note:before,.note .frame,.note .tape{display:none}
+ .paper-art{display:block;position:absolute;right:8px;top:8px;width:auto;height:auto;max-width:46%;max-height:115px;object-fit:contain;pointer-events:none;z-index:0}
+ .tape-art{display:block;position:absolute;left:1px;top:-4px;width:auto;height:auto;max-width:83px;max-height:60px;object-fit:contain;z-index:2;pointer-events:none}
+ .note-copy{z-index:1}
+ .note .avatar{width:34px;height:34px}
+ .note .person{gap:8px}
+ .note .person strong{font-size:13px}
+ .note .person small{font-size:9px;letter-spacing:0}
+ .note-copy>p{font-size:12px;line-height:1.48;margin:8px 0 4px;letter-spacing:0}
+ .note-art{z-index:1;min-width:65px;width:25%;padding:20px 0 0}
+ .note-art .sticker-original{display:none}
+ .note-art .sticker-crayon{display:block;width:auto;height:auto;max-width:100%;max-height:100px;object-fit:contain;transform:none}
+ .note-art .photo{width:100%;height:auto;max-height:100px;object-fit:contain;border-width:4px}
+ .actions{gap:0}
+ .actions button{font-size:14px;min-height:24px}
+ .actions button:nth-child(2){display:none}
+ .actions .like-art{width:auto;height:auto;max-width:23px;max-height:21px;object-fit:contain}
+ .actions button span{font-size:12px}
+ .inline-comments{display:block;padding:2px 18px 13px;border-bottom:1px solid #eee4d7;font-size:12px;line-height:1.6;color:#544c48}
+ .inline-comments p{margin:5px 0;overflow-wrap:anywhere}
+ .inline-comments strong{font-weight:600}
+ .inline-comments form{display:flex;align-items:center;gap:8px;margin-top:9px}
+ .inline-comments input{min-width:0;flex:1;padding:8px 10px;border:1px solid #ddd1c8;border-radius:18px;background:#fffaf4;outline-color:#d78d9a;font-size:12px}
+ .inline-comments button{border:0;background:none;color:#c96f85;padding:5px;font-size:12px}
+ .detail-shade{display:none}
+}
+@media(max-width:720px){
+ .tape-art{left:auto;right:32%;top:-17px;max-width:74px;max-height:50px}
+ .paper-art{right:8px;top:50px;max-width:38%;max-height:110px}
+ .note-art{padding-top:28px}
+ .note-art .sticker-crayon{max-height:92px}
+}
+.heading-star{display:inline-block;width:auto;height:auto;max-width:26px;max-height:24px;object-fit:contain;vertical-align:middle}
+@media(max-width:720px){.heading-star{max-width:22px;max-height:21px}}
