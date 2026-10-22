@@ -50,3 +50,14 @@ body{background:#faf7f0;color:#47453f}
 /* Keep the mood sticker floating in unused right-hand paper space. */
 .paper-note .note-sticker{position:absolute;right:20px;top:31px;z-index:2}
 @media(max-width:750px){.paper-note .note-sticker{right:11px;top:31px}}
+
+/* Crayon stroke treatment: one continuous irregular wax line, textured with discrete grain.
+   No repeated crossed-out scribbles. */
+.paper-note:after{display:none!important}
+.paper-note{--outline:#74a7d1}
+.paper-1{--outline:#cf869f}.paper-2{--outline:#7fa38e}.paper-3{--outline:#c99e6e}
+.crayon-outline{position:absolute;inset:5px 4px 5px 4px;width:calc(100% - 8px);height:calc(100% - 10px);z-index:0;overflow:visible;pointer-events:none}
+.crayon-outline path{fill:none;stroke:var(--outline);stroke-width:3.7;stroke-linecap:round;stroke-linejoin:round;filter:url(#crayon-grain)}
+.crayon-outline .grain-line{stroke-width:1.25;opacity:.45;filter:none}
+.paper-note .note-content,.paper-note .note-sticker,.paper-note .note-actions{z-index:1}
+.paper-note:before{background:linear-gradient(105deg,#ffffff25,#ffffff00 40%,#ffffff20 75%),var(--paper)}
