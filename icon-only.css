@@ -1,0 +1,10 @@
+/* Keep the previous layout and palette; size the new hand-drawn SVG icons. */
+.sketch-icon{display:inline-block;width:1.25em;height:1.25em;object-fit:contain;vertical-align:-.2em;flex:none}
+.avatar .sketch-icon{width:25px;height:25px}
+nav button span .sketch-icon{width:21px;height:21px;vertical-align:middle}
+.topbar .sketch-icon{width:18px;height:18px}
+.groupbtn .sketch-icon,.members .sketch-icon{width:16px;height:16px}
+.moods button .sketch-icon{width:28px;height:28px;vertical-align:middle}
+.post img.sketch-icon{display:inline-block;width:1.25em;height:1.25em;max-height:none;object-fit:contain;border-radius:0}
+.postheader img.mood-icon{width:24px;height:24px;max-height:none;object-fit:contain;border-radius:0}
+.invite-poll-label .sketch-icon{width:18px;height:18px;margin-right:4px}
