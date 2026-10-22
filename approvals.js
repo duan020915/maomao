@@ -30,7 +30,7 @@ function approvalsPage(){
   }).join('')||'<div class="empty">还没有购买申请，来发起第一条吧。</div>'}</div></section>`;
 }
 function approvalForm(){
-  return `<section class="approval-page approval-compose"><button class="approval-back" type="button" data-approval-action="back">← 返回审批列表</button><form id="approvalrequestform"><label for="approval-item">想买什么 <em>*</em></label><input id="approval-item" name="item" maxlength="80" required placeholder="例如：无线降噪耳机、机械键盘…"><label for="approval-price">价格 <em>*</em></label><div class="approval-price-row"><select name="currency" aria-label="币种"><option value="CNY">¥ 人民币</option><option value="USD">$ 美元</option><option value="EUR">€ 欧元</option></select><input id="approval-price" name="price" type="number" min="0.01" max="9999999" step="0.01" inputmode="decimal" required placeholder="0.00"></div><label for="approval-reason">为什么想买？ <em>*</em></label><textarea id="approval-reason" name="reason" maxlength="300" required placeholder="说说你为什么需要它…"></textarea><label for="approval-alternative">有没有更便宜的替代品？</label><textarea id="approval-alternative" name="alternative" maxlength="300" placeholder="有 / 没有，简单说明"></textarea><label for="approval-images">上传图片（选填，最多 3 张）</label><input id="approval-images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple><p class="approval-help">每张不超过 8 MB。图片只保存在本次演示中。</p><h3>审批方式</h3><div class="approval-methods"><label><input type="radio" name="mode" value="single" checked><span><b>单人审批</b><small>一人回复后结束</small></span></label><label><input type="radio" name="mode" value="multi"><span><b>多人审批</b><small>汇总圈里朋友的意见</small></span></label></div><h3>发送到哪里</h3><div class="approval-destination"><span class="avatar">🌱</span><div><b>${esc(state.group?.name||'示例小圈子')}</b><small>${state.members.length} 位朋友 · 演示审批群</small></div></div><p id="formerror" class="error"></p><button class="primary approval-submit" type="submit">提交审批</button></form></section>`;
+  return `<section class="approval-page approval-compose"><button class="approval-back" type="button" data-approval-action="back">← 返回审批列表</button><form id="approvalrequestform"><label for="approval-item">想买什么 <em>*</em></label><input id="approval-item" name="item" maxlength="80" required placeholder="例如：无线降噪耳机、机械键盘…"><label for="approval-price">价格 <em>*</em></label><div class="approval-price-row"><select name="currency" aria-label="币种"><option value="CNY">¥ 人民币</option><option value="USD">$ 美元</option><option value="EUR">€ 欧元</option></select><input id="approval-price" name="price" type="number" min="0.01" max="9999999" step="0.01" inputmode="decimal" required placeholder="0.00"></div><label for="approval-reason">为什么想买？ <em>*</em></label><textarea id="approval-reason" name="reason" maxlength="300" required placeholder="说说你为什么需要它…"></textarea><label for="approval-alternative">有没有更便宜的替代品？</label><textarea id="approval-alternative" name="alternative" maxlength="300" placeholder="有 / 没有，简单说明"></textarea><label for="approval-images">上传图片（选填，最多 3 张）</label><div class="approval-photo-picker"><label class="approval-photo-add" for="approval-images"><span>＋</span>添加图片</label><input id="approval-images" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden><div id="approval-photo-preview" class="approval-photo-preview"></div></div><h3>审批方式</h3><div class="approval-methods"><label><input type="radio" name="mode" value="single"><span><b>单人审批</b><small>一人回复后结束</small></span></label><label><input type="radio" name="mode" value="multi" checked><span><b>多人审批</b><small>汇总圈里朋友的意见</small></span></label></div><h3>发送到哪里</h3><div class="approval-destination"><span class="avatar">🌱</span><div><b>${esc(state.group?.name||'示例小圈子')}</b><small>${state.members.length} 位朋友 · 演示审批群</small></div></div><p id="formerror" class="error"></p><button class="primary approval-submit" type="submit">提交审批</button></form></section>`;
 }
 function approvalDialog(id){
   const request=approvalState.requests.find(r=>r.id===id);
@@ -53,6 +53,23 @@ document.addEventListener('click',event=>{
 document.addEventListener('keydown',event=>{
   if((event.key==='Enter'||event.key===' ')&&event.target.matches('[data-approval-card]')){
     event.preventDefault();approvalDialog(event.target.dataset.approvalCard);
+  }
+});
+let approvalPhotoUrls=[];
+document.addEventListener('change',event=>{
+  if(event.target.id!=='approval-images')return;
+  approvalPhotoUrls.forEach(url=>URL.revokeObjectURL(url));
+  approvalPhotoUrls=[];
+  const input=event.target,files=Array.from(input.files||[]),preview=$('#approval-photo-preview');
+  preview.replaceChildren();
+  if(files.length>3){input.value='';error('最多上传 3 张图片');return}
+  for(const file of files){
+    if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>8*1024*1024){
+      input.value='';preview.replaceChildren();error('请选择不超过 8 MB 的 JPG、PNG 或 WebP 图片');return;
+    }
+    const url=URL.createObjectURL(file);approvalPhotoUrls.push(url);
+    const image=document.createElement('img');image.src=url;image.alt=file.name;
+    preview.append(image);
   }
 });
 document.addEventListener('submit',async event=>{
