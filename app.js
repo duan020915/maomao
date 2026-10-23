@@ -6,6 +6,7 @@ const LEGACY_MOODS={'😊':'happy','🥰':'loved','😌':'calm','🤩':'excited'
 const moodKey=v=>MOODS.includes(v)?v:LEGACY_MOODS[v]||'happy';
 const moodName=k=>({happy:'开心',excited:'兴奋',calm:'平静',loved:'喜欢',tired:'疲惫',sad:'难过',anxious:'焦虑',angry:'生气',confused:'困惑',bored:'无聊',hopeful:'期待',overwhelmed:'压力山大'})[k]||'心情';
 const moodIcon=v=>v==='○'?'○':`<img class="mood-sticker" src="assets/moods/${moodKey(v)}.png" alt="${moodName(moodKey(v))}" loading="lazy">`;
+const bubblePaperPalette=['blue','pink','green','orange','purple'],bubblePaperAssignments=new Map();
 const stickerCss=document.createElement('style');stickerCss.textContent='.mood-sticker{display:inline-block;width:28px;height:28px;object-fit:contain;vertical-align:middle}.moods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.moods button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid transparent;border-radius:13px;background:#f6f2ea;min-height:78px;padding:7px 3px;font-size:11px}.moods button .mood-sticker{height:45px;width:45px}.moods button.selected{outline:2px solid #a8a08d;outline-offset:1px;background:#eee8dd}.postheader .mood-sticker,.cardhead .mood-sticker{width:27px;height:27px}';document.head.appendChild(stickerCss);
 const sampleMembers=[{id:'demo1',name:'小桃',avatar:'🐱'},{id:'demo2',name:'阿森',avatar:'🐻'},{id:'demo3',name:'可可',avatar:'🐰'},{id:'demo4',name:'大鱼',avatar:'🐳'}];
 function demoData(){state.members=sampleMembers;state.group={id:'demo',name:'周末不宅家',code:'DEMO'};state.entries=[...sampleMembers.flatMap((m,i)=>[{id:'p'+i,user_id:m.id,group_id:'demo',day:today(),kind:'plan',body:['去逛花市，带一束秋天回家 🌼','把工作收个尾，晚上去跑步','给自己放半天假，咖啡续命 ☕','新发现一家小面馆，想找人一起'][i],mood:['🥰','🌿','😌','🤩'][i],start_time:['09:00','11:00','14:00','18:30'][i],end_time:['10:30','12:00','16:00','20:00'][i],status:['有空约','有安排','有空约','有空约'][i]},{id:'q'+i,user_id:m.id,group_id:'demo',day:shift(today(),i+1),kind:'plan',body:['和朋友看展','去公园散步','练习做一顿晚餐','周末骑行'][i],mood:'😊',status:'有安排'}]),{id:'post1',user_id:'demo1',day:today(),kind:'post',body:'今天的风刚刚好。突然觉得，有些小事也值得认真分享。🌿',mood:'🥰',created_at:new Date().toISOString()},{id:'event1',user_id:'demo3',day:shift(today(),3),kind:'event',start_time:'15:00',end_time:'17:00',body:'一起去秋日野餐吧 🧺\n带点好吃的，在草地上晒晒太阳。',mood:'🥳',status:'报名中',created_at:new Date().toISOString()}];state.responses=[{id:'sampleComment1',entry_id:'post1',user_id:'demo2',kind:'comment',body:'好浪漫的心情！',created_at:new Date().toISOString()},{id:'sampleRSVP1',entry_id:'event1',user_id:'demo1',kind:'accept',body:'可以参加'},{id:'sampleRSVP2',entry_id:'event1',user_id:'demo4',kind:'decline',body:'不能参加'}];}
@@ -64,12 +65,18 @@ function moodCalendar(){
 }
 function postFeed(){
   const entries=state.entries.filter(e=>e.kind==='post').sort((a,b)=>(b.created_at||'').localeCompare(a.created_at||''));
-  return `<div class="feed scrapbook-feed">${moodCalendar()}${entries.length?entries.map((e,index)=>{
+  let previousPaper=null;
+  for(const entry of [...entries].reverse()){
+    if(!bubblePaperAssignments.has(entry.id))bubblePaperAssignments.set(entry.id,bubblePaperPalette[previousPaper===null?0:(bubblePaperPalette.indexOf(previousPaper)+1)%bubblePaperPalette.length]);
+    previousPaper=bubblePaperAssignments.get(entry.id);
+  }
+  return `<div class="feed scrapbook-feed">${moodCalendar()}${entries.length?entries.map(e=>{
     const m=member(e.user_id),responses=state.responses.filter(x=>x.entry_id===e.id);
     const hasPhoto=e.image?.startsWith('data:image/');
     const comments=responses.filter(x=>x.kind==='comment');
-    const paper=hasPhoto||e.body.length>115||comments.length>3?'tall':index%2?'pink':'blue';
-    return `<article class="post bubble-sticker bubble-${paper}"><div class="bubble-sticker-content">
+    const paper=bubblePaperAssignments.get(e.id);
+    const compact=!hasPhoto&&e.body.trim().length<=20&&comments.length===0;
+    return `<article class="post bubble-sticker bubble-${paper}${compact?' bubble-compact':''}"><div class="bubble-sticker-content">
       <div class="postheader"><span class="avatar">${esc(m.avatar)}</span><div><b>${esc(m.name)}</b><small>${esc(e.day)}</small></div></div>
       <button class="status-reply" data-respond="${esc(e.id)}" data-kind="comment" aria-label="回复${esc(m.name)}的状态">${esc(e.body)}</button>
       ${hasPhoto?`<img class="bubble-photo" src="${esc(e.image)}" alt="朋友分享的照片">`:''}
