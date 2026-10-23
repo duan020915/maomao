@@ -1,0 +1,19 @@
+@font-face{
+  font-family:'LXGW WenKai';
+  src:url('assets/fonts/LXGWWenKai-ui-subset.ttf') format('truetype');
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+}
+@font-face{
+  font-family:'LXGW WenKai';
+  src:url('assets/fonts/LXGWWenKai-ui-medium-subset.ttf') format('truetype');
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+}
+body,button,input,select,textarea,.scrapbook-feed .bubble-sticker,.mood-calendar{
+  font-family:'Maomao Hand','LXGW WenKai','PingFang SC',sans-serif!important;
+}
+body{font-weight:500}
+button,input,select,textarea{font-weight:inherit}

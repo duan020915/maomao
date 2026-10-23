@@ -1,0 +1,177 @@
+/* Supplied torn-paper PNGs form the visible surface; button text and actions remain HTML. */
+:is(button.primary,button.secondary,button.groupbtn,.topbar button,.datecontrols button,
+  .members button,.segments button,.moods button,.mood-calendar-day,.addplan,.approval-back,
+  .mood-calendar-heading button,.approval-photo-add,.approval-vote-options label,
+  .invite-poll-choice){
+  position:relative;
+  isolation:isolate;
+  background:transparent!important;
+  border-color:transparent!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+:is(button.primary,button.secondary,button.groupbtn,.topbar button,.datecontrols button,
+  .members button,.segments button,.moods button,.mood-calendar-day,.addplan,.approval-back,
+  .mood-calendar-heading button,.approval-photo-add,.approval-vote-options label,
+  .invite-poll-choice)::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  border:10px solid transparent;
+  border-image:url('assets/crayon/paper-cream.png') 18 19 20 18 fill / 10px stretch;
+  filter:drop-shadow(1px 2px 1px #705b4224);
+}
+:is(button.primary,.segments button.active,.members button.selected,.moods button.selected,
+  .mood-calendar-day.selected,.mood-calendar-day.today,
+  .invite-poll-choice.selected,.approval-vote-options label:has(input:checked))::after{
+  border-image-source:url('assets/crayon/paper-pink.png');
+}
+:is(button.groupbtn,button[data-action="today"],.datecontrols button,
+  .topbar .topbar-login)::after{
+  border-image-source:url('assets/crayon/paper-yellow.png');
+}
+:is(.primary,.secondary,.groupbtn,.topbar button,.datecontrols button,.members button,
+  .segments button,.moods button,.addplan,.approval-back,.approval-photo-add,
+  .approval-vote-options label,.invite-poll-choice):hover::after{
+  filter:drop-shadow(2px 3px 2px #705b4230);
+}
+button.primary,.secondary,.approval-back,.approval-photo-add{color:#684e42!important}
+.topbar button{display:inline-grid;place-items:center}
+.topbar .topbar-login:has(.crayon-icon){display:inline-grid;place-items:center;min-width:36px}
+.topbar .topbar-login .crayon-icon{width:27px;height:27px;max-width:27px;max-height:27px;object-fit:contain}
+.topbar .topbar-login{padding:2px}
+[data-approval-action="new"] .crayon-icon,.approval-photo-add .crayon-icon{width:19px;height:19px;object-fit:contain;vertical-align:middle;margin-right:6px}
+.approval-photo-add span{display:inline-flex;align-items:center}
+nav button.active,body:not([data-page="feed"]) nav button.active{
+  position:relative;isolation:isolate;background:transparent;border-color:transparent;border-radius:0;box-shadow:none;
+}
+nav button.active::after,body:not([data-page="feed"]) nav button.active::after{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;border:10px solid transparent;
+  border-image:url('assets/crayon/paper-pink.png') 18 19 20 18 fill / 10px stretch;
+}
+@media(max-width:650px){
+  nav button.active::after,body:not([data-page="feed"]) nav button.active::after{border-width:7px;border-image-width:7px}
+}
+/* Only the three view choices have paper; the switcher has no surrounding tray. */
+body[data-page="calendar"] .toolbar .segments{
+  background:none!important;border:0!important;outline:0!important;
+  box-shadow:none!important;border-radius:0!important;padding:0!important;gap:6px;
+}
+body[data-page="calendar"] .toolbar .segments::before,
+body[data-page="calendar"] .toolbar .segments::after{content:none!important}
+body[data-page="calendar"] .toolbar .datecontrols button{
+  background:none!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;padding:7px 8px;
+}
+body[data-page="calendar"] .toolbar .datecontrols button::before,
+body[data-page="calendar"] .toolbar .datecontrols button::after{content:none!important;display:none!important}
+/* Variable-width name stickers use the original paper artwork as a nine-slice. */
+body[data-page="calendar"] .members button{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:auto;min-width:max-content;min-height:36px;padding:7px 14px;
+  background:none!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;isolation:isolate;
+}
+body[data-page="calendar"] .members button::after{
+  content:''!important;display:block!important;position:absolute;inset:0;z-index:-1;
+  border:9px solid transparent;
+  border-image:url('assets/crayon/paper-cream.png') 18 19 20 18 fill / 9px stretch;
+  filter:drop-shadow(1px 2px 1px #705b4224);
+}
+body[data-page="calendar"] .members button:nth-child(3n+2)::after{border-image-source:url('assets/crayon/paper-yellow.png')}
+body[data-page="calendar"] .members button:nth-child(3n)::after{border-image-source:url('assets/crayon/paper-pink.png')}
+body[data-page="calendar"] .members button.selected::after{border-image-source:url('assets/crayon/paper-pink.png')}
+body[data-page="calendar"] .members button.selected{color:#8b5f4b;font-weight:700;text-decoration:none}
+.mood-calendar-toggle img{width:29px;height:29px}
+body:not([data-page="feed"]) nav button span .sketch-icon.crayon-icon{max-width:none;max-height:none}
+/* Day cards, month avatars, and a framed horizontal week scroller. */
+body[data-page="calendar"] .day-empty{margin-top:16px;padding:42px 18px;color:#8c7568}
+body[data-page="calendar"] .timeline-row-busy .status-reply{display:block;overflow:visible;-webkit-line-clamp:unset}
+body[data-page="calendar"] .calendarwrap{overflow:hidden}
+body[data-page="calendar"] .week-scroll{max-width:100%;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;touch-action:pan-x;scrollbar-width:thin}
+body[data-page="calendar"] .week{width:max(100%,980px);min-width:980px;border-collapse:separate;border-spacing:0;table-layout:fixed}
+body[data-page="calendar"] .week th:first-child,body[data-page="calendar"] .week td:first-child{
+  position:sticky;left:0;z-index:2;width:110px;min-width:110px;
+  background:#fff9ed;box-shadow:4px 0 7px #705b421b;
+}
+body[data-page="calendar"] .week th:first-child{z-index:3;background:#f2dfb4}
+body[data-page="calendar"] .month-markers{display:block;font-size:10px;color:#946c4b;line-height:1.2}
+body[data-page="calendar"] .month-avatars{display:flex;flex-wrap:wrap;align-items:center;gap:3px;margin:4px 0}
+body[data-page="calendar"] .month-avatar{width:23px;height:23px;font-size:13px;border:1px solid #fffaf2}
+body[data-page="calendar"] .month-avatar .sketch-icon{width:16px;height:16px}
+body[data-page="calendar"] .month-summary{display:block}
+@media(max-width:650px){
+  body[data-page="calendar"] .week{width:980px;min-width:980px}
+  body[data-page="calendar"] .week th:first-child,body[data-page="calendar"] .week td:first-child{width:82px;min-width:82px}
+  body[data-page="calendar"] .monthday{padding:4px 2px}
+  body[data-page="calendar"] .month-markers{font-size:8px}
+  body[data-page="calendar"] .month-avatars{gap:2px;margin:2px 0}
+  body[data-page="calendar"] .month-avatar{width:15px;height:15px;font-size:9px}
+  body[data-page="calendar"] .month-avatar .sketch-icon{width:11px;height:11px}
+  body[data-page="calendar"] .month-summary{display:none}
+}
+/* Give the feed heading the same notebook paper as the other page headings. */
+body[data-page="feed"] .feed-hero{
+  position:relative;width:100%;min-height:126px;margin:14px 0 30px;padding:27px 26px;
+  background:#e8f0ef url('assets/frames/paper-grain.svg');
+  border-radius:3px 8px 5px 2px;box-shadow:2px 5px 8px #83674a10;
+}
+body[data-page="feed"] .feed-hero::before{
+  content:'';position:absolute;top:-10px;left:31px;width:76px;height:22px;
+  background:repeating-linear-gradient(90deg,#dab98d60 0 7px,#f4dfbc85 7px 9px);
+  transform:rotate(-4deg);pointer-events:none;
+}
+.topbar>div{display:flex;align-items:center;gap:8px}
+.topbar>div button,.topbar>div .topbar-login:has(.crayon-icon){
+  display:inline-grid;place-items:center;width:38px;min-width:38px;height:38px;
+  margin:0;padding:3px;line-height:1;
+}
+/* Distinct notebook sheets for each main page. */
+body[data-page="calendar"] .hero{background-color:#faedd8}
+body[data-page="events"] .hero{background-color:#f7e9e6}
+body[data-page="approvals"] .hero{background-color:#e8eee1}
+/* The four compose actions share one paper size and one icon baseline. */
+.hero>button.primary:is([data-action="compose"],[data-approval-action="new"]){
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  width:124px;min-width:124px;height:43px;padding:7px 9px!important;
+  font-size:13px!important;line-height:1.2;font-weight:700;
+}
+.hero>button.primary:is([data-action="compose"],[data-approval-action="new"]) .crayon-icon{
+  display:block;width:20px!important;height:20px!important;max-width:20px;
+  max-height:20px;margin:0!important;object-fit:contain;vertical-align:middle;
+}
+/* Center the visible ink, not just the differently padded PNG canvases. */
+.topbar>div{align-items:center}
+.topbar>div button .crayon-icon{display:block;width:22px!important;height:22px!important;object-fit:contain}
+.topbar>div .topbar-login .crayon-icon{width:32px!important;height:32px!important;max-width:32px!important;max-height:32px!important;transform:translate(-2px,1px)}
+.topbar button::after,.topbar .topbar-login::after{content:none!important;display:none!important}
+/* The supplied bell includes its red dot. Reveal that corner only for unread updates. */
+.topbar [data-page="notifications"][data-unread="false"] .crayon-icon{
+  clip-path:polygon(0 0,60% 0,60% 34%,100% 34%,100% 100%,0 100%);
+}
+@media(max-width:650px){
+  body[data-page="feed"] .feed-hero{min-height:107px;margin:10px 0 25px;padding:22px 16px}
+  body[data-page="feed"] .feed-hero::before{left:22px;width:54px;height:17px;top:-8px}
+  body{position:relative}
+  aside,body:not([data-page="feed"]) aside{
+    display:flex;flex-direction:row;align-items:center;gap:7px;
+    height:58px;min-height:58px;padding:8px 101px 7px 13px;
+  }
+  .brand{flex:none;gap:5px;margin:0;font-size:20px;letter-spacing:0}
+  .groupbtn{
+    position:relative;top:auto;right:auto;flex:1;min-width:0;max-width:145px;width:auto;
+    height:38px;min-height:38px;margin:0;padding:6px 9px;
+    font-size:11px;line-height:26px;white-space:nowrap;
+  }
+  .groupbtn small{display:none}
+  .topbar{
+    position:absolute;top:-50px;right:12px;z-index:2;
+    width:auto;height:38px;margin:0;padding:0;border:0;
+  }
+  .topbar>div{gap:2px}
+  .topbar>div button,.topbar>div .topbar-login:has(.crayon-icon){width:36px;min-width:36px;height:38px}
+  main{padding-top:0}
+  body:not([data-page="feed"]) .hero,body[data-page="feed"] .feed-hero{margin-top:4px}
+}
