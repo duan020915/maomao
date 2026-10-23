@@ -1,0 +1,57 @@
+/* The paper and its stamp edge scale independently of the live card content. */
+body[data-page="approvals"] .approval-list{gap:22px}
+body[data-page="approvals"] .approval-card,
+body[data-page="approvals"] .approval-card:nth-child(even){
+  position:relative;min-width:0;rotate:0deg;overflow:visible;
+  background-color:#ead3ad;
+  background-image:url('assets/frames/kraft-fibers.png'),linear-gradient(125deg,#f3dfbd 0%,#e9cfaa 62%,#f0d9b5 100%);
+  background-size:256px 256px,cover;
+  background-clip:padding-box;
+  border:27px solid transparent;
+  border-image-source:url('assets/frames/stamp.svg');
+  border-image-slice:48;
+  border-image-width:27px;
+  border-image-repeat:stretch;
+  border-radius:0;
+  padding:17px 20px 15px;
+  box-shadow:0 10px 18px #765b3927,0 3px 4px #765b3920;
+  color:#554238;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+body[data-page="approvals"] .approval-card:nth-child(even){transform:rotate(-.25deg)}
+body[data-page="approvals"] .approval-card:hover,
+body[data-page="approvals"] .approval-card:focus-visible{transform:translateY(-4px) rotate(.2deg);box-shadow:0 15px 25px #765b3933,0 4px 5px #765b3920}
+body[data-page="approvals"] .approval-card::before{content:"";position:absolute;z-index:1;top:-37px;right:14%;width:61px;height:18px;background:#f6ddae9c;border:1px solid #d8b98655;box-shadow:0 2px 4px #715b3430;transform:rotate(5deg);pointer-events:none}
+body[data-page="approvals"] .approval-card:nth-child(3n+2)::before{left:12%;right:auto;transform:rotate(-6deg)}
+body[data-page="approvals"] .approval-card-head{align-items:center}
+body[data-page="approvals"] .approval-author{min-width:0}
+body[data-page="approvals"] .approval-author b{font-size:15px;color:#654534}
+body[data-page="approvals"] .approval-author time{display:block;margin-top:4px;font-size:12px;color:#806a55}
+body[data-page="approvals"] .approval-card .avatar{background:#f7e6c8;border:2px solid #fff4dc;box-shadow:2px 2px 0 #a0805855}
+body[data-page="approvals"] .approval-item{align-items:flex-start;flex-wrap:wrap;margin:19px 0 10px;gap:4px 16px}
+body[data-page="approvals"] .approval-item strong{font-size:25px;line-height:1.3;overflow-wrap:anywhere}
+body[data-page="approvals"] .approval-item b{font-size:21px;color:#a35742}
+body[data-page="approvals"] .approval-card .approval-reason{display:block;overflow:visible;color:#6b5441;line-height:1.75;white-space:pre-wrap;overflow-wrap:anywhere}
+body[data-page="approvals"] .approval-card-images{display:flex;gap:9px;flex-wrap:wrap;margin:15px 0}
+body[data-page="approvals"] .approval-card-images img{width:min(28%,130px);aspect-ratio:1;object-fit:cover;background:#f8e9cd;border:5px solid #fff8e9;box-shadow:1px 3px 6px #5f492b36;transform:rotate(-2deg)}
+body[data-page="approvals"] .approval-card-images img:nth-child(even){transform:rotate(2deg)}
+body[data-page="approvals"] .approval-card-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+body[data-page="approvals"] .approval-card-actions button{border:1.5px solid #b68b6a;border-radius:8px 11px 7px 12px;background:#f9e9cebd;padding:8px 12px;font-weight:700;color:#76523f;box-shadow:2px 2px 0 #a8825938}
+body[data-page="approvals"] .approval-card-actions button:first-child{color:#6b7653;border-color:#9ca77b}
+body[data-page="approvals"] .approval-card-actions button:nth-child(2){color:#a46161;border-color:#c8998d}
+body[data-page="approvals"] .approval-card-actions button:hover{background:#fff5df;transform:translateY(-2px)}
+body[data-page="approvals"] .approval-card-actions button:focus-visible{outline:2px solid #a35f43;outline-offset:2px}
+body[data-page="approvals"] .approval-card-actions span{margin-left:3px}
+body[data-page="approvals"] .approval-card .approval-card-comment{display:block;margin:15px 0 0;padding:10px 12px;background:#fff6e085;border-left:2px dashed #b88d6c;color:#755c47;line-height:1.55;white-space:pre-wrap;overflow-wrap:anywhere}
+body[data-page="approvals"] .approval-progress{border-top:2px dotted #ba9575;margin-top:16px;padding-top:11px;color:#806549;font-size:12px}
+body[data-page="approvals"] .approval-badge{font-weight:700;box-shadow:1px 2px 0 #8a65442b}
+@media(max-width:650px){
+  body[data-page="approvals"] .approval-list{gap:18px}
+  body[data-page="approvals"] .approval-card,body[data-page="approvals"] .approval-card:nth-child(even){border-width:22px;border-image-width:22px;padding:10px 11px 9px}
+  body[data-page="approvals"] .approval-card::before{top:-31px;width:47px;height:15px}
+  body[data-page="approvals"] .approval-item strong{font-size:21px}
+  body[data-page="approvals"] .approval-item b{font-size:19px}
+  body[data-page="approvals"] .approval-card-actions{gap:6px}
+  body[data-page="approvals"] .approval-card-actions button{padding:7px 9px;font-size:12px}
+  body[data-page="approvals"] .approval-progress{font-size:11px}
+}
