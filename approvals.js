@@ -5,6 +5,12 @@ const approvalState={
     reason:'两只猫最近总爱往高处跑，想给它们准备一个稳当的活动空间。',
     alternative:'看过纸箱和小型猫抓板，空间不够，也不太稳。',
     images:[],mode:'multi',group_id:'demo',created_at:new Date().toISOString()
+  },{
+    id:'sample-hair',user_id:'demo3',item:'想去染头发！',currency:'CNY',price:199,
+    reason:'想染一个红棕色，大家觉得适合我吗？还是再等等冬天再染？',
+    alternative:'也在考虑先用一次性染发膏试试颜色。',
+    images:['assets/approvals/hair-sticker.webp'],mode:'multi',group_id:'demo',
+    created_at:new Date(Date.now()-86400000).toISOString()
   }],
   votes:[]
 };
