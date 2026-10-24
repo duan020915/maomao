@@ -26,7 +26,8 @@ h1,h2,h3,.invite-question,.approval-item strong,.approval-detail-item strong{
 h1{-webkit-text-stroke:.7px currentColor}
 /* Small labels and bubble-card copy need complete Chinese glyph coverage on iOS. */
 small,.footnote,.postactions button,.comment,.mood-calendar,
-.scrapbook-feed .bubble-sticker,.guest-local-note,.groupbtn,
-.topbar,.weekday,.monthday small,.moods button span{
+.mood-calendar button,.scrapbook-feed .bubble-sticker,
+.scrapbook-feed .bubble-sticker button,.guest-local-note,.groupbtn,
+.topbar,.weekday,.monthday small,.moods button span,nav button{
   font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif!important;
 }
