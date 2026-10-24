@@ -1,6 +1,13 @@
 node_modules/
+.DS_Store
 *.png
 *.log
 .next/
 out/
 *.tsbuildinfo
+www/
+ios/App/Pods/
+ios/DerivedData/
+ios/SourcePackages/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
