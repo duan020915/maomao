@@ -5,9 +5,9 @@
 ## 当前状态
 
 - Capacitor iOS 工程已创建；iPhone 16e（iOS 18.6）模拟器已安装并启动连接正式后端的构建，登录界面可见。
-- 网页预览仍使用模拟数据。iOS 正式构建连接新建的独立 Supabase 项目 `gjmgepuszmoxdacwnfhb`；构建脚本要求提供它的 URL 和 publishable key。
+- GitHub Pages 网页版与 iOS 共用根目录源码，均连接独立 Supabase 项目 `gjmgepuszmoxdacwnfhb`；构建脚本要求提供它的 URL 和 publishable key。
 - 买不买申请和投票已增加 Supabase 持久化及群组成员访问限制。四段 SQL 已在新项目执行成功；邮箱确认已开启，验证链接会返回 App。
-- Yuzeum 团队自动签名已成功，Xcode 归档已生成。尚未在真实 iPhone 上验证，也尚未上传 TestFlight。
+- 最新共享源码已成功生成 iOS 签名归档；尚未在真实 iPhone 上验证，也尚未上传 TestFlight。现有 App Store 描述文件缺少小组件 App Group 和推送权限，导出待 Apple Developer 签名配置更新。
 
 ## 新 Supabase 项目
 
@@ -18,7 +18,7 @@
 3. `supabase/migrations/20261022_rsvp_reason.sql`
 4. `supabase/migrations/20261023_approvals.sql`
 
-Authentication → URL Configuration 已把 Site URL 和允许的跳转地址设为 `maomao-duan020915://auth-callback`。测试者验证邮箱后回到 App，再使用邮箱和密码登录。正式构建使用项目的 URL 和 **publishable** key；不要使用 `service_role` key。
+iOS 邮箱验证回跳地址为 `maomao-duan020915://auth-callback`。网页版还需要在 Authentication → URL Configuration 的 Redirect URLs 中允许 `https://duan020915.github.io/maomao/`。测试者验证邮箱后回到 App，再使用邮箱和密码登录。正式构建使用项目的 URL 和 **publishable** key；不要使用 `service_role` key。
 
 ## 本地构建
 
