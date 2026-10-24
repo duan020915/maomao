@@ -32,6 +32,22 @@
   .topbar .topbar-login)::after{
   border-image-source:url('assets/crayon/paper-yellow.png');
 }
+/* The supplied yellow paper has no left ink edge; draw that edge behind the live switcher text. */
+button.groupbtn{
+  background-image:url('assets/crayon/paper-left-edge.svg')!important;
+  background-repeat:no-repeat!important;
+  background-size:10px calc(100% - 4px)!important;
+  background-position:left center!important;
+}
+/* Keep the real date input and picker, with the matching drawn calendar on its face. */
+body[data-page="calendar"] #jumpdate{
+  background:#fffaf0 url('assets/crayon/nav-calendar.png') center / 31px 30px no-repeat;
+  border-color:#e9d7bc;
+  color:transparent;
+}
+body[data-page="calendar"] #jumpdate::-webkit-calendar-picker-indicator{
+  width:100%;height:100%;margin:0;padding:0;opacity:0;cursor:pointer;
+}
 :is(.primary,.secondary,.groupbtn,.topbar button,.datecontrols button,.members button,
   .segments button,.moods button,.addplan,.approval-back,.approval-photo-add,
   .approval-vote-options label,.invite-poll-choice):hover::after{
