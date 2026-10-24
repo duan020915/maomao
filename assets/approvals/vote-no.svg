@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="126" viewBox="0 0 420 126">
+ <defs><filter id="crayon" x="-3%" y="-12%" width="106%" height="124%"><feTurbulence type="fractalNoise" baseFrequency=".05 .12" numOctaves="2" seed="13" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter><pattern id="grain" width="28" height="25" patternUnits="userSpaceOnUse"><path d="M2 6l5-2M14 14l7 1M7 23l4-1" stroke="#c48169" stroke-width="1.5" opacity=".25"/></pattern></defs>
+ <path d="M56 14Q16 20 12 60Q15 106 67 113L348 112Q405 108 409 65Q408 18 356 14Q213 8 56 14Z" fill="#f0d4b5" fill-opacity=".85" stroke="#ba6c50" stroke-width="7" stroke-linecap="round" filter="url(#crayon)"/>
+ <path d="M55 20Q21 21 19 61Q20 101 65 107L350 107Q400 103 402 65Q400 22 354 20Q215 13 55 20Z" fill="url(#grain)" stroke="#d3896e" stroke-width="3" stroke-dasharray="15 6 22 5" opacity=".83" filter="url(#crayon)"/>
+</svg>
