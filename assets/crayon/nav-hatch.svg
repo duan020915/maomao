@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 76" preserveAspectRatio="none">
+  <defs>
+    <clipPath id="shape"><path d="M14 7 Q40 4 72 6 T158 7 Q174 9 175 21 L173 59 Q169 71 156 70 Q106 73 56 70 L14 69 Q5 66 6 55 L5 20 Q6 10 14 7Z"/></clipPath>
+    <filter id="crayon" x="-5%" y="-10%" width="110%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".13 .24" numOctaves="2" seed="8" result="grain"/><feDisplacementMap in="SourceGraphic" in2="grain" scale="1.8"/></filter>
+  </defs>
+  <g clip-path="url(#shape)" fill="none" stroke="#000" stroke-linecap="round" filter="url(#crayon)">
+    <path stroke-width="4.2" opacity=".68" d="M-6 52 47 -3 M-3 67 62 -5 M9 77 76 -5 M27 80 91 -4 M45 80 108 -5 M63 80 124 -4 M80 81 140 -5 M97 81 157 -4 M114 81 173 -4 M131 82 189 -1 M151 83 198 30"/>
+    <path stroke-width="2.2" opacity=".56" d="M-8 59 54 -6 M1 75 68 -6 M18 81 85 -5 M36 81 101 -6 M54 82 117 -5 M72 82 133 -5 M89 82 150 -5 M106 82 165 -5 M123 82 182 -4 M142 82 195 17"/>
+    <path stroke-width="1.6" opacity=".32" d="M-4 48 44 -4 M12 68 68 3 M35 71 91 5 M58 74 116 3 M84 72 140 4 M107 73 161 7 M133 73 181 17"/>
+  </g>
+  <path d="M13 7 Q40 4 72 6 T158 7 Q174 9 175 21 L173 59 Q169 71 156 70 Q106 73 56 70 L14 69 Q5 66 6 55 L5 20 Q6 10 13 7Z" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-dasharray="19 4 34 3" opacity=".34" filter="url(#crayon)"/>
+</svg>
