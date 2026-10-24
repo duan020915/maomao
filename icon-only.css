@@ -8,19 +8,23 @@ nav button span .sketch-icon{width:21px;height:21px;vertical-align:middle}
 .post img.sketch-icon{display:inline-block;width:1.25em;height:1.25em;max-height:none;object-fit:contain;border-radius:0}
 .postheader img.mood-icon{width:24px;height:24px;max-height:none;object-fit:contain;border-radius:0}
 .invite-poll-label .sketch-icon{width:18px;height:18px;margin-right:4px}
-/* The hand-drawn PNGs have different native aspect ratios.
-   Give them consistent layout boxes and contain the artwork without stretching or cropping. */
+.sketch-icon.crayon-icon{width:auto;height:auto;max-width:1.25em;max-height:1.25em;object-fit:contain}
+nav button span .sketch-icon.crayon-icon{width:auto;height:auto;max-width:25px;max-height:25px}
+.topbar .sketch-icon.crayon-icon{width:auto;height:auto;max-width:21px;max-height:21px}
+[data-action="compose"] .sketch-icon.crayon-icon{width:auto;height:auto;max-width:22px;max-height:22px;margin-right:6px;vertical-align:middle}
+.brand .logo:has(.crayon-icon){background:transparent;box-shadow:none;transform:none}
+.brand .logo .crayon-icon{display:block;width:43px;height:auto;max-width:43px;max-height:43px}
+.topbar .topbar-login:has(.crayon-icon){display:inline-grid;place-items:center;width:36px;min-width:36px;height:36px;padding:5px;border-radius:50%}
+.topbar .topbar-login .crayon-icon{width:23px;height:23px;max-width:23px;max-height:23px}
+
+/* Equal visual footprints, with optical corrections for denser drawings.
+   object-fit preserves each supplied asset's proportions and texture. */
 .sketch-icon.crayon-icon{width:1.25em;height:1.25em;max-width:none;max-height:none;object-fit:contain}
-nav button span .sketch-icon.crayon-icon{width:32px;height:32px;max-width:none;max-height:none}
-/* The dark drawings in the supplied PNGs are all about 50px wide, but
-   nav-approval has a 65px canvas while the others are about 100px wide.
-   Match the drawings' visible size without altering the image assets. */
-nav button[data-page="calendar"] span .sketch-icon.crayon-icon{width:29px;height:29px}
-nav button[data-page="events"] span .sketch-icon.crayon-icon{width:29px;height:29px}
-nav button[data-page="approvals"] span .sketch-icon.crayon-icon{width:19px;height:19px}
-.topbar .sketch-icon.crayon-icon{width:21px;height:21px;max-width:none;max-height:none}
-[data-action="compose"] .sketch-icon.crayon-icon{width:22px;height:22px;max-width:none;max-height:none;margin-right:6px;vertical-align:middle}
-/* The ellipsis is intentionally wide; keep its strokes uncropped within the same box. */
-.sketch-icon.crayon-icon[src$="/more.png"]{object-fit:contain}
-nav button span{display:inline-grid;place-items:center;width:34px;height:33px;vertical-align:middle}
-@media(max-width:650px){nav button span{display:grid;width:34px;height:33px;margin:0 auto 4px}}
+nav button span{display:inline-flex;align-items:center;justify-content:center;width:30px;height:28px;vertical-align:middle}
+nav button span .sketch-icon.crayon-icon{width:25px;height:25px;max-width:none;max-height:none}
+nav [data-page="calendar"] .crayon-icon{width:23px;height:23px}
+nav [data-page="approvals"] .crayon-icon{width:21px;height:21px}
+.topbar .sketch-icon,.topbar .sketch-icon.crayon-icon,.topbar .topbar-login .crayon-icon{width:22px;height:22px;max-width:none;max-height:none;object-fit:contain}
+[data-action="compose"] .sketch-icon.crayon-icon{width:22px;height:22px;max-width:none;max-height:none}
+.sketch-icon[data-icon="more"]{width:1.25em;height:1.25em}
+@media(max-width:650px){nav button span{display:flex;width:30px;height:28px;margin:0 auto 4px}}

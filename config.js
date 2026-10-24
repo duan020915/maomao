@@ -1,2 +1,1 @@
-// Static demo only. No backend connection or credentials in this preview.
-window.MAOMAO_CONFIG = null;
+window.MAOMAO_CONFIG = {"url":"https://gjmgepuszmoxdacwnfhb.supabase.co","key":"sb_publishable_2MFLDKVUoFASehEkQhLLkg_LKIXmXHQ","authRedirectUrl":"https://duan020915.github.io/maomao/"};

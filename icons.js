@@ -1,10 +1,10 @@
 // SVG drawings adapted from the MIT-licensed Naive Icons collection.
 const sketchIcons={
   '🐱':'cat','🐻':'bear','🐰':'rabbit','🐳':'fish','🐼':'bear','🦊':'fox',
-  '🌱':'leaf','🌿':'leaf','🌷':'flower','🌼':'flower','🌻':'flower',
-  '✨':'star','💗':'crayon:like-filled','💬':'chat','♡':'crayon:like-outline',
-  '☁':'cloud','☁️':'cloud','💌':'crayon:notification',
-  '☺':'crayon:nav-profile','♧':'bell',
+  '🌱':'leaf','🌿':'leaf','🌷':'flower','🌼':'flower','🌻':'flower','☕':'coffee',
+  '🕒':'clock','✨':'star','💌':'mail','💗':'heart','💬':'chat','♡':'heart',
+  '✅':'check','❌':'x-circle','✓':'check','☁':'cloud','☁️':'cloud',
+  '🧺':'shopping-bag','🌈':'sun','☺':'user','♧':'bell',
   '😊':'mood:okay','🥰':'mood:lovely','😌':'mood:calm','🤩':'mood:excited',
   '😵‍💫':'mood:tired','🥳':'mood:celebrate','🙂':'mood:okay'
 };
@@ -16,16 +16,18 @@ function sketchImage(name,label=''){
   image.className='sketch-icon'+(name.startsWith('mood:')?' mood-icon':'')+(crayon?' crayon-icon':'');
   image.src=crayon?'assets/crayon/'+crayon+'.png':name.startsWith('mood:')?'assets/moods/'+name.slice(5)+'.svg':'assets/icons/'+name+'.svg';
   image.alt=label;
+  if(crayon)image.dataset.icon=crayon;
   if(!label)image.setAttribute('aria-hidden','true');
   return image;
 }
 function iconizeDom(root){
+  root.querySelectorAll('.brand .logo').forEach(slot=>slot.replaceChildren(sketchImage('crayon:sticker-cat')));
   const navIcons={calendar:'crayon:nav-calendar',feed:'crayon:nav-home',events:'crayon:nav-meet',approvals:'crayon:nav-approval',profile:'crayon:nav-profile'};
   root.querySelectorAll('nav [data-page]').forEach(button=>{
     const slot=button.querySelector('span');
     if(slot&&navIcons[button.dataset.page])slot.replaceChildren(sketchImage(navIcons[button.dataset.page]));
   });
-  const utilityIcons=[['.topbar [data-page="notifications"]','crayon:notification']];
+  const utilityIcons=[['.topbar [data-action="refresh"]','refresh'],['.topbar [data-page="notifications"]','crayon:notification']];
   utilityIcons.forEach(([selector,name])=>root.querySelectorAll(selector).forEach(button=>button.replaceChildren(sketchImage(name))));
   root.querySelectorAll('.topbar-login').forEach(button=>button.replaceChildren(sketchImage('crayon:nav-profile')));
   root.querySelectorAll('[data-action="compose"]').forEach(button=>{
@@ -34,11 +36,6 @@ function iconizeDom(root){
     if(first?.nodeType===Node.TEXT_NODE)first.nodeValue=first.nodeValue.replace(/^\s*＋\s*/, '');
     button.prepend(sketchImage('crayon:compose'));
   });
-  root.querySelectorAll('[data-approval-action="new"]').forEach(button=>{
-    button.firstChild?.nodeType===Node.TEXT_NODE&&(button.firstChild.nodeValue=button.firstChild.nodeValue.replace(/^\s*＋\s*/,''));
-    button.prepend(sketchImage('crayon:compose'));
-  });
-  root.querySelectorAll('.approval-photo-add span').forEach(slot=>slot.replaceChildren(sketchImage('crayon:add-photo')));
   root.querySelectorAll('[data-mood]').forEach(button=>{
     // Preserve the custom hand-drawn PNG sticker and label in the new mood picker.
     if(button.querySelector('.mood-sticker'))return;
@@ -59,7 +56,7 @@ function iconizeDom(root){
     for(const part of parts){
       const key=part.replace(/\uFE0F/g,'');
       if(/[\p{Extended_Pictographic}\p{Emoji_Presentation}]/u.test(part)||sketchIcons[part]){
-        flush();const icon=sketchIcons[part]||sketchIcons[key];fragment.append(icon?sketchImage(icon):document.createTextNode(part));
+        flush();const icon=sketchIcons[part]||sketchIcons[key];if(icon)fragment.append(sketchImage(icon));
       }else buffer+=part;
     }
     flush();node.replaceWith(fragment);

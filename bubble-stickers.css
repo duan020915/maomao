@@ -54,6 +54,7 @@
 .scrapbook-feed .bubble-compact .bubble-sticker-content{min-height:112px}
 .scrapbook-feed .bubble-compact .status-reply,.scrapbook-feed .bubble-compact .bubble-sticker-bottom{padding-right:124px}
 .scrapbook-feed .bubble-compact .bubble-sticker-mood{position:absolute;right:0;bottom:0}
+.scrapbook-feed .bubble-compact .bubble-sticker-mood .mood-sticker{width:82px;height:76px;max-width:82px;max-height:76px}
 @media(max-width:650px){
  .feed-hero{padding:0 1px 5px}
  .feed-hero h1{font-size:26px}

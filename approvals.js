@@ -54,7 +54,7 @@ function approvalDialog(id,selectedChoice){
   const request=approvalState.requests.find(r=>r.id===id);
   if(!request)return toast('找不到这条申请');
   const status=approvalStatus(request),author=member(request.user_id);
-  const mine=status.votes.find(v=>v.user_id===(PREVIEW_MODE?'demo1':state.user?.id));
+  const mine=status.votes.find(v=>v.user_id===((PREVIEW_MODE?'demo1':state.user?.id)));
   const canVote=PREVIEW_MODE||request.user_id!==state.user?.id;
   const voteForm=canVote?`<form id="approvalvoteform" data-id="${esc(id)}"><div class="approval-vote-options"><label><input type="radio" name="choice" value="approve" ${mine?.choice==='approve'?'checked':''} required><span>通过</span></label><label><input type="radio" name="choice" value="reject" ${mine?.choice==='reject'?'checked':''} required><span>驳回</span></label></div><label for="approval-vote-reason">回复理由 <em>*</em></label><textarea id="approval-vote-reason" name="reason" maxlength="300" required placeholder="说说你为什么这样决定…">${esc(mine?.reason||'')}</textarea><p id="formerror" class="error"></p><button class="primary approval-submit" type="submit">提交回复</button></form>`:'<p class="approval-detail-status">这是你发起的申请，等朋友来回复吧。</p>';
   modal('看看这笔想买买',`<div class="approval-detail-head"><span class="avatar">${esc(author.avatar)}</span><div><b>${esc(author.name)}发起的审批</b><small>${approvalDate(request.created_at)} · ${request.mode==='single'?'单人审批':'多人审批'}</small></div></div><div class="approval-detail-item"><strong>${esc(request.item)}</strong><b>${approvalMoney(request)}</b></div><div class="approval-detail-row"><small>购买理由</small><p>${esc(request.reason)}</p></div><div class="approval-detail-row"><small>替代品</small><p>${esc(request.alternative||'暂未填写')}</p></div>${approvalImages(request)}<p class="approval-detail-status">${status.label} · 已有 ${status.votes.length} / ${status.required} 人回复</p>${voteForm}${status.votes.length?`<div class="approval-replies"><h3>大家的回复</h3>${status.votes.map(v=>`<p><b>${esc(member(v.user_id).name)} · ${approvalChoice[v.choice]}</b>：${esc(v.reason)}</p>`).join('')}</div>`:''}`);
@@ -119,26 +119,26 @@ document.addEventListener('submit',async event=>{
       if(files.length>3)throw Error('最多上传 3 张图片');
       const images=[];
       for(const file of files)images.push(await compress(file));
-      if(PREVIEW_MODE){
-        approvalState.requests.unshift({id:'approval-'+Date.now(),user_id:'demo1',item,price,currency,reason,alternative,images,mode,group_id:state.group.id,created_at:new Date().toISOString()});
+      if(PREVIEW_MODE||guestMode){
+        approvalState.requests.unshift({id:'approval-'+Date.now(),user_id:guestMode?GUEST_ID:'demo1',item,price,currency,reason,alternative,images,mode,group_id:state.group.id,created_at:new Date().toISOString()});
       }else{
         await query(db.from('mm_approval_requests').insert({user_id:state.user.id,item,price,currency,reason,alternative,images,mode,group_id:state.group.id}));
         await loadApprovalState();
       }
-      state.page='approvals';render();toast(PREVIEW_MODE?'模拟审批已发起，朋友可以来回复啦':'审批已发给圈里的朋友');
+      state.page='approvals';guestSave();render();toast(guestMode?'已保存在这台设备':PREVIEW_MODE?'模拟审批已发起，朋友可以来回复啦':'审批已发给圈里的朋友');
     }else{
       const choice=String(data.get('choice')||'');
       const reason=String(data.get('reason')||'').trim();
       if(!approvalChoice[choice])throw Error('请选择通过或驳回');
       if(!reason)throw Error('请写下回复理由');
-      if(PREVIEW_MODE){
-        approvalState.votes=approvalState.votes.filter(v=>!(v.request_id===form.dataset.id&&v.user_id==='demo1'));
-        approvalState.votes.push({request_id:form.dataset.id,user_id:'demo1',choice,reason,created_at:new Date().toISOString()});
+      if(PREVIEW_MODE||guestMode){
+        approvalState.votes=approvalState.votes.filter(v=>!(v.request_id===form.dataset.id&&v.user_id===(guestMode?GUEST_ID:'demo1')));
+        approvalState.votes.push({request_id:form.dataset.id,user_id:guestMode?GUEST_ID:'demo1',choice,reason,created_at:new Date().toISOString()});
       }else{
         await query(db.from('mm_approval_votes').upsert({request_id:form.dataset.id,user_id:state.user.id,choice,reason,created_at:new Date().toISOString()},{onConflict:'request_id,user_id'}));
         await loadApprovalState();
       }
-      $('#modal').close();render();toast(PREVIEW_MODE?'模拟审批回复已记录':'审批回复已保存');
+      $('#modal').close();guestSave();render();toast(guestMode?'已保存在这台设备':PREVIEW_MODE?'模拟审批回复已记录':'审批回复已保存');
     }
   }catch(err){error(err.message)}
   finally{if(button.isConnected)button.disabled=false}

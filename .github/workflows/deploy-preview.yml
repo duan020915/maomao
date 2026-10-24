@@ -1,9 +1,9 @@
-name: Deploy WiFi Girls Preview
+name: Deploy Maomao Web
 
 on:
   push:
     branches:
-      - design/mobile-feed-crayon-assets
+      - main
   workflow_dispatch:
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: wifi-girls-pages
+  group: maomao-pages
   cancel-in-progress: true
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Package complete Maomao app from repository root
+      - name: Package the shared Maomao web source
         run: |
           mkdir -p site
           cp index.html ./*.css ./*.js ./*.svg ./*.webmanifest site/
@@ -30,6 +30,8 @@ jobs:
           touch site/.nojekyll
           test -s site/index.html
           test -s site/app.js
+          test -s site/guest.js
+          test -s site/config.js
           test -s site/bubble-stickers.css
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -40,7 +42,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: wifi-girls-preview
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
