@@ -69,7 +69,12 @@
  .scrapbook-feed .bubble-photo{max-height:235px}
  .scrapbook-feed .bubble-sticker-mood{width:96px;height:70px;flex-basis:96px}
  .scrapbook-feed .bubble-sticker-mood .mood-sticker{width:auto;height:68px;max-width:96px;max-height:68px}
- .scrapbook-feed .bubble-compact{width:94%;min-height:0}
+ .scrapbook-feed .bubble-compact{width:98%;min-height:0}
  .scrapbook-feed .bubble-compact .bubble-sticker-content{min-height:110px}
- .scrapbook-feed .bubble-compact .status-reply,.scrapbook-feed .bubble-compact .bubble-sticker-bottom{padding-right:100px}
+ .scrapbook-feed .bubble-compact .status-reply,.scrapbook-feed .bubble-compact .bubble-sticker-bottom{padding-right:0}
+ .scrapbook-feed .bubble-sticker-bottom{display:block}
+ .scrapbook-feed .bubble-sticker-replies{width:100%}
+ .scrapbook-feed .postactions{flex-wrap:wrap;gap:8px 14px}
+ .scrapbook-feed .postactions button{white-space:nowrap;flex-shrink:0}
+ .scrapbook-feed .bubble-sticker-mood,.scrapbook-feed .bubble-compact .bubble-sticker-mood{position:static;display:flex;justify-content:flex-end;width:100%;height:70px;margin-top:2px}
 }
