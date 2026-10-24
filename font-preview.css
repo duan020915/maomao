@@ -17,3 +17,10 @@ body,button,input,select,textarea,.scrapbook-feed .bubble-sticker,.mood-calendar
 }
 body{font-weight:500}
 button,input,select,textarea{font-weight:inherit}
+/* Keep body copy light, while giving the page and card titles a fuller hand-lettered weight. */
+h1,h2,h3,.invite-question,.approval-item strong,.approval-detail-item strong{
+  font-family:'LXGW WenKai','PingFang SC',sans-serif;
+  font-weight:700;
+  -webkit-text-stroke:.45px currentColor;
+}
+h1{-webkit-text-stroke:.7px currentColor}
