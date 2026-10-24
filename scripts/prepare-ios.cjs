@@ -24,6 +24,8 @@ const config = demo ? null : {url, key, authRedirectUrl: process.env.MAOMAO_AUTH
 fs.writeFileSync(path.join(output, 'config.js'), `window.MAOMAO_CONFIG = ${JSON.stringify(config)};\n`);
 let html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 html = html.replace('冒冒 · 新版互动预览（模拟数据）', '冒冒 · 小圈子日程');
+html = html.replace('width=device-width,initial-scale=1', 'width=device-width,initial-scale=1,viewport-fit=cover');
+html = html.replace('<body>', '<body class="ios-native">');
 html = html.replace('<script src="icons.js', '<script src="vendor/supabase.js"></script><script src="config.js"></script><script src="icons.js');
 if (!html.includes('<script src="config.js"></script>')) throw new Error('Could not inject native runtime configuration.');
 fs.writeFileSync(path.join(output, 'index.html'), html);

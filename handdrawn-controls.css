@@ -191,3 +191,14 @@ body[data-page="approvals"] .hero{background-color:#e8eee1}
   main{padding-top:0}
   body:not([data-page="feed"]) .hero,body[data-page="feed"] .feed-hero{margin-top:4px}
 }
+@media(max-width:650px){
+  .ios-native aside,.ios-native:not([data-page="feed"]) aside{
+    height:calc(58px + env(safe-area-inset-top));
+    min-height:calc(58px + env(safe-area-inset-top));
+    padding-top:calc(8px + env(safe-area-inset-top));
+  }
+}
+/* Keep iOS from zooming the visual viewport when a text field takes focus. */
+@media(max-width:650px){
+  body.ios-native :is(input:not([type="date"]):not([type="checkbox"]):not([type="radio"]),textarea,select){font-size:16px}
+}
