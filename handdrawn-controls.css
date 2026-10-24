@@ -60,19 +60,15 @@ button.primary,.secondary,.approval-back,.approval-photo-add{color:#684e42!impor
 .topbar .topbar-login{padding:2px}
 [data-approval-action="new"] .crayon-icon,.approval-photo-add .crayon-icon{width:19px;height:19px;object-fit:contain;vertical-align:middle;margin-right:6px}
 .approval-photo-add span{display:inline-flex;align-items:center}
-nav button[data-page="calendar"]{--nav-hatch-color:#838b61}
-nav button[data-page="feed"]{--nav-hatch-color:#bf7969}
-nav button[data-page="events"]{--nav-hatch-color:#bd9150}
-nav button[data-page="approvals"]{--nav-hatch-color:#9b715a}
 nav button.active,body:not([data-page="feed"]) nav button.active{
-  position:relative;isolation:isolate;background:transparent;border:0;border-radius:0;box-shadow:none;color:#503c2f;
+  position:relative;isolation:isolate;background:transparent;border-color:transparent;border-radius:0;box-shadow:none;
 }
 nav button.active::after,body:not([data-page="feed"]) nav button.active::after{
-  content:'';position:absolute;inset:-3px;z-index:-1;pointer-events:none;border:0;
-  background:var(--nav-hatch-color);opacity:.76;
-  -webkit-mask:url('assets/crayon/nav-scribble.svg') center / 100% 100% no-repeat;
-  mask:url('assets/crayon/nav-scribble.svg') center / 100% 100% no-repeat;
-  transform:rotate(-1deg);
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;border:10px solid transparent;
+  border-image:url('assets/crayon/paper-pink.png') 18 19 20 18 fill / 10px stretch;
+}
+@media(max-width:650px){
+  nav button.active::after,body:not([data-page="feed"]) nav button.active::after{border-width:7px;border-image-width:7px}
 }
 /* Only the three view choices have paper; the switcher has no surrounding tray. */
 body[data-page="calendar"] .toolbar .segments{
