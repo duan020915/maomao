@@ -12,8 +12,6 @@ nav button span .sketch-icon{width:21px;height:21px;vertical-align:middle}
 nav button span .sketch-icon.crayon-icon{width:auto;height:auto;max-width:25px;max-height:25px}
 .topbar .sketch-icon.crayon-icon{width:auto;height:auto;max-width:21px;max-height:21px}
 [data-action="compose"] .sketch-icon.crayon-icon{width:auto;height:auto;max-width:22px;max-height:22px;margin-right:6px;vertical-align:middle}
-.brand .logo:has(.brand-mark){width:43px;height:43px;flex:0 0 43px;background:transparent;box-shadow:none;transform:none;border:0}
-.brand .logo .brand-mark{display:block;width:43px;height:43px;object-fit:contain}
 .topbar .topbar-login:has(.crayon-icon){display:inline-grid;place-items:center;width:36px;min-width:36px;height:36px;padding:5px;border-radius:50%}
 .topbar .topbar-login .crayon-icon{width:23px;height:23px;max-width:23px;max-height:23px}
 
