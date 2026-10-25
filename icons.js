@@ -21,7 +21,6 @@ function sketchImage(name,label=''){
   return image;
 }
 function iconizeDom(root){
-  root.querySelectorAll('.brand .logo').forEach(slot=>slot.replaceChildren(sketchImage('crayon:sticker-cat')));
   const navIcons={calendar:'crayon:nav-calendar',feed:'crayon:nav-home',events:'crayon:nav-meet',approvals:'crayon:nav-approval',profile:'crayon:nav-profile'};
   root.querySelectorAll('nav [data-page]').forEach(button=>{
     const slot=button.querySelector('span');
