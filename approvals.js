@@ -14,14 +14,16 @@ const approvalState={
   }]:[],
   votes:[]
 };
+async function fetchApprovalState(groupId){
+  if(!groupId)return {requests:[],votes:[]};
+  const requests=await query(db.from('mm_approval_requests').select('*').eq('group_id',groupId).order('created_at',{ascending:false}));
+  const votes=requests.length?await query(db.from('mm_approval_votes').select('*').in('request_id',requests.map(request=>request.id)).order('created_at')):[];
+  return {requests,votes};
+}
 async function loadApprovalState(){
-  approvalState.requests=[];
-  approvalState.votes=[];
-  if(!state.group)return;
-  approvalState.requests=await query(db.from('mm_approval_requests').select('*').eq('group_id',state.group.id).order('created_at',{ascending:false}));
-  if(approvalState.requests.length){
-    approvalState.votes=await query(db.from('mm_approval_votes').select('*').in('request_id',approvalState.requests.map(request=>request.id)).order('created_at'));
-  }
+  const next=await fetchApprovalState(state.group?.id);
+  approvalState.requests=next.requests;
+  approvalState.votes=next.votes;
 }
 const approvalCurrency={CNY:'¥',USD:'$',EUR:'€'};
 const approvalChoice={approve:'通过',reject:'驳回'};
@@ -101,8 +103,10 @@ document.addEventListener('submit',async event=>{
   const form=event.target;
   if(!['approvalrequestform','approvalvoteform'].includes(form.id))return;
   event.preventDefault();
+  if(form.dataset.submitting==='true')return;
+  form.dataset.submitting='true';
   const button=event.submitter;
-  button.disabled=true;
+  if(button)button.disabled=true;
   try{
     const data=new FormData(form);
     if(form.id==='approvalrequestform'){
@@ -122,10 +126,11 @@ document.addEventListener('submit',async event=>{
       if(PREVIEW_MODE||guestMode){
         approvalState.requests.unshift({id:'approval-'+Date.now(),user_id:guestMode?GUEST_ID:'demo1',item,price,currency,reason,alternative,images,mode,group_id:state.group.id,created_at:new Date().toISOString()});
       }else{
-        await query(db.from('mm_approval_requests').insert({user_id:state.user.id,item,price,currency,reason,alternative,images,mode,group_id:state.group.id}));
-        await loadApprovalState();
+        await query(db.from('mm_approval_requests').insert({user_id:state.user.id,item,price,currency,reason,alternative,images,mode,group_id:state.group.id}).select('id'));
+        clearDraft(form);
+        await loadApprovalState().catch(err=>console.warn('Approval refresh failed after save',err));
       }
-      state.page='approvals';guestSave();render();toast(guestMode?'已保存在这台设备':PREVIEW_MODE?'模拟审批已发起，朋友可以来回复啦':'审批已发给圈里的朋友');
+      clearDraft(form);state.page='approvals';guestSave();render();toast(guestMode?'已保存在这台设备':PREVIEW_MODE?'模拟审批已发起，朋友可以来回复啦':'审批已发给圈里的朋友');
     }else{
       const choice=String(data.get('choice')||'');
       const reason=String(data.get('reason')||'').trim();
@@ -135,11 +140,12 @@ document.addEventListener('submit',async event=>{
         approvalState.votes=approvalState.votes.filter(v=>!(v.request_id===form.dataset.id&&v.user_id===(guestMode?GUEST_ID:'demo1')));
         approvalState.votes.push({request_id:form.dataset.id,user_id:guestMode?GUEST_ID:'demo1',choice,reason,created_at:new Date().toISOString()});
       }else{
-        await query(db.from('mm_approval_votes').upsert({request_id:form.dataset.id,user_id:state.user.id,choice,reason,created_at:new Date().toISOString()},{onConflict:'request_id,user_id'}));
-        await loadApprovalState();
+        await query(db.from('mm_approval_votes').upsert({request_id:form.dataset.id,user_id:state.user.id,choice,reason,created_at:new Date().toISOString()},{onConflict:'request_id,user_id'}).select('request_id'));
+        clearDraft(form);
+        await loadApprovalState().catch(err=>console.warn('Approval refresh failed after save',err));
       }
-      $('#modal').close();guestSave();render();toast(guestMode?'已保存在这台设备':PREVIEW_MODE?'模拟审批回复已记录':'审批回复已保存');
+      clearDraft(form);$('#modal').close();guestSave();render();toast(guestMode?'已保存在这台设备':PREVIEW_MODE?'模拟审批回复已记录':'审批回复已保存');
     }
   }catch(err){error(err.message)}
-  finally{if(button.isConnected)button.disabled=false}
+  finally{delete form.dataset.submitting;if(button?.isConnected)button.disabled=false}
 });
