@@ -7,7 +7,7 @@
 - Capacitor iOS 工程已创建；iPhone 16e（iOS 18.6）模拟器已安装并启动连接正式后端的构建，登录界面可见。
 - GitHub Pages 网页版与 iOS 共用根目录源码，均连接独立 Supabase 项目 `gjmgepuszmoxdacwnfhb`；构建脚本要求提供它的 URL 和 publishable key。
 - 买不买申请和投票已增加 Supabase 持久化及群组成员访问限制。四段 SQL 已在新项目执行成功；邮箱确认已开启，验证链接会返回 App。
-- Build 6 已通过外部 Beta App Review，状态为 Testing。Build 7 使用与 GitHub Pages 相同的网页源码，补充小日程正文的系统黑体、推送令牌保存重试，并将 iOS 启动画面和 WebView 背景设为浅色。已在 iPhone 16 Pro（iOS 18.6）模拟器验证页面能打开；朋友反馈 Build 6 在真机黑屏，仍需收集截图和设备信息核对是否为持续黑屏。
+- Build 6 已通过外部 Beta App Review。Build 7 已上传、完成出口合规声明，并分配给内部组 WIFI 和外部组 WFI，状态为 Testing。Build 7 使用与 GitHub Pages 相同的网页源码，补充小日程正文的系统黑体、推送令牌保存重试，并将 iOS 启动画面和 WebView 背景设为浅色。已在 iPhone 16 Pro（iOS 18.6）模拟器验证页面能打开；一位测试者反馈 Build 6 在 iPhone 15 Pro Max（iOS 27.0.1）持续黑屏，需在更新 Build 7 后复测。
 
 ## 新 Supabase 项目
 
@@ -26,4 +26,4 @@ iOS 邮箱验证回跳地址为 `maomao-duan020915://auth-callback`。网页版�
 
 正式构建前，在当前终端设置 `MAOMAO_SUPABASE_URL`、`MAOMAO_SUPABASE_PUBLISHABLE_KEY`，可选 `MAOMAO_AUTH_REDIRECT_URL`，然后运行 `npm run ios:sync`。`www/` 和 iOS 工程内同步的网页文件由脚本生成，不提交到 Git。
 
-Xcode 已选择 Yuzeum, Inc. 团队并成功归档。Build 6 已分配给内部测试组 WIFI 和外部测试组 WFI。推送数据库事件与 Edge Function 已部署；只有登录账号且在 App 的「有人喊你」页面开启手机通知、成功登记生产环境设备的用户，才能收到新内容的系统通知。游客模式只保存在本机。还需在真机上验证通知、登录、创建圈子、发布内容、上传照片、审批和投票。
+Xcode 已选择 Yuzeum, Inc. 团队并成功归档。Build 7 已分配给内部测试组 WIFI 和外部测试组 WFI。推送数据库事件与 Edge Function 已部署；只有登录账号且在 App 的「有人喊你」页面开启手机通知、成功登记生产环境设备的用户，才能收到新内容的系统通知。游客模式只保存在本机。还需在真机上验证通知、登录、创建圈子、发布内容、上传照片、审批和投票。
