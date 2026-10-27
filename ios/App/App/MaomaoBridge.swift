@@ -86,5 +86,8 @@ public class MaomaoBridge: CAPPlugin, CAPBridgedPlugin {
 final class MaomaoBridgeViewController: CAPBridgeViewController {
     override func capacitorDidLoad() {
         bridge?.registerPluginInstance(MaomaoBridge())
+        webView?.isOpaque = false
+        webView?.backgroundColor = UIColor(red: 0.980, green: 0.973, blue: 0.953, alpha: 1)
+        webView?.scrollView.backgroundColor = webView?.backgroundColor
     }
 }

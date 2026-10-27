@@ -25,9 +25,12 @@ function syncTodayWidget(){
  bridge.updateWidget({snapshot:JSON.stringify(snapshot)}).catch(()=>{});
 }
 async function savePushToken(token,environment='production'){
- if(!token||!state.user||PREVIEW_MODE||guestMode)return;
- pushToken=token;
- try{await query(db.from('mm_device_tokens').upsert({user_id:state.user.id,token,platform:'ios',environment,updated_at:new Date().toISOString()},{onConflict:'user_id,token'}))}catch(e){console.warn('Could not save push token',e)}
+ if(!token||!state.user||PREVIEW_MODE||guestMode)return false;
+ try{
+  await query(db.from('mm_device_tokens').upsert({user_id:state.user.id,token,platform:'ios',environment,updated_at:new Date().toISOString()},{onConflict:'user_id,token'}));
+  pushToken=token;
+  return true;
+ }catch(e){console.warn('Could not save push token',e);return false}
 }
 async function registerExistingPush(){
  const bridge=native();if(!bridge||!state.user||pushToken)return;
@@ -37,8 +40,9 @@ async function enableMobileNotifications(){
  const bridge=native();if(!bridge){toast('手机通知只在 iOS App 中提供');return}
  if(!state.user){authDialog();return}
  try{const permission=await bridge.requestNotifications();if(!permission.granted){toast('请在 iPhone 设置中允许冒冒发送通知');return}
-  const result=await bridge.registerForPush();if(result?.token)await savePushToken(result.token,result.environment);
-  toast('手机通知已开启 🌷');render();
+  const result=await bridge.registerForPush();
+  if(result?.token){if(!await savePushToken(result.token,result.environment)){toast('通知已获授权，但设备登记失败。请检查网络后重试');return}}
+  toast(result?.token?'手机通知已开启 🌷':'通知已获授权，正在等待手机完成登记');render();
  }catch(e){toast('通知暂时无法开启：'+e.message)}
 }
 async function handleNativeNotification(payload){
