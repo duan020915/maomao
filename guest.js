@@ -14,6 +14,8 @@ function guestSave(){
   catch{toast('本地空间不足，请删除一些游客照片后重试')}
 }
 function guestStart(){
+  if(typeof startupError!=='undefined')startupError='';
+  state.loading=false;
   const saved=guestRead();
   guestMode=true;
   state.user={id:GUEST_ID,email:'游客 · 仅保存在这台设备'};
