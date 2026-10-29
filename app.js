@@ -1,4 +1,13 @@
-const PREVIEW_MODE=!window.MAOMAO_CONFIG?.url,db=PREVIEW_MODE?null:supabase.createClient(window.MAOMAO_CONFIG.url,window.MAOMAO_CONFIG.key), $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function supabaseFetch(input,init={},timeoutMs=12000){
+ const url=String(input?.url||input);
+ if(!url.includes('/auth/v1/'))return fetch(input,init);
+ const controller=new AbortController(),signal=init.signal||input.signal;
+ const abort=()=>controller.abort();
+ if(signal?.aborted)abort();else signal?.addEventListener('abort',abort,{once:true});
+ const timer=setTimeout(abort,timeoutMs);
+ return fetch(input,{...init,signal:controller.signal}).finally(()=>{clearTimeout(timer);signal?.removeEventListener('abort',abort)});
+}
+const PREVIEW_MODE=!window.MAOMAO_CONFIG?.url,db=PREVIEW_MODE?null:supabase.createClient(window.MAOMAO_CONFIG.url,window.MAOMAO_CONFIG.key,{global:{fetch:supabaseFetch}}), $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=()=>new Intl.DateTimeFormat('sv-SE',{timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone}).format(new Date()), date=d=>new Date(d+'T12:00:00'), key=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`, shift=(d,n)=>{let x=date(d);x.setDate(x.getDate()+n);return key(x)}, weekdays=['日','一','二','三','四','五','六'];
 let state={user:null,profile:null,groups:[],group:null,members:[],entries:[],responses:[],page:'calendar',view:'day',day:today(),filter:[],demo:PREVIEW_MODE,loading:false,moodCalendarOpen:false,moodMonth:today().slice(0,7),moodDay:today()}, mood='😊', authMode='login';
 const MOODS=['happy','excited','calm','loved','tired','sad','anxious','angry','confused','bored','hopeful','overwhelmed'];
@@ -77,7 +86,7 @@ $('#modal').addEventListener('close',()=>{if(document.body.classList.contains('i
 function error(t){let el=$('#formerror');if(el)el.textContent=t;else toast(t)}
 function requireUser(){if(guestMode||PREVIEW_MODE)return true;if(state.demo||!state.user){authDialog();return false}return true}
 async function query(q){const r=await q;if(r.error)throw r.error;return r.data}
-function retryableReadError(e){return /failed to fetch|load failed|network|timeout|timed out|fetch failed|\b(429|502|503|504)\b/i.test(String(e?.message||e))}
+function retryableReadError(e){return /failed to fetch|load failed|network|timeout|timed out|fetch failed|aborted|abort|\b(429|502|503|504)\b/i.test(String(e?.message||e))}
 async function readData(makeQuery){try{return await query(makeQuery())}catch(e){if(!retryableReadError(e))throw e;await new Promise(resolve=>setTimeout(resolve,900));return query(makeQuery())}}
 let loadPromise=null,hasLoadedAccount=false,lastFocusSync=0,realtimeChannel=null,realtimeKey='',realtimeTimer=null,pendingDataRefresh=false,startupError='';
 function startupRecovery(){return `<div class="profile"><h2>暂时没能连接到冒冒</h2><p class="sub">${esc(startupError||'请检查网络后重试。')} 已填写的草稿会保存在这台设备。</p><button class="primary" data-action="retry-startup">重试连接</button> <button class="secondary" data-action="auth">重新登录</button> <button class="secondary" data-action="guest">以游客身份使用</button></div>`}
